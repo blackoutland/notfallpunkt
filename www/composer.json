@@ -1,0 +1,19 @@
+{
+  "require": {
+    "symfony/var-dumper": "*@dev",
+    "twig/twig": "*@stable",
+    "aura/session": "2.1.0",
+    "twbs/bootstrap": "^4.1",
+    "ext-json": "*",
+    "ext-PDO": "*",
+    "ext-mbstring": "*"
+  },
+  "autoload": {
+    "classmap": [
+      "inc/",
+      "vendor/"
+    ]
+  },
+  "repositories": [
+  ]
+}
