@@ -3,10 +3,14 @@
     "symfony/var-dumper": "*@dev",
     "twig/twig": "*@stable",
     "aura/session": "2.1.0",
-    "twbs/bootstrap": "^4.1",
+    "hackzilla/password-generator": "^1.5",
+    "uptodown/random-username-generator": "^1.0",
+    "asika/autolink": "^2.0",
+    "filp/whoops": "^2.7",
     "ext-json": "*",
     "ext-PDO": "*",
-    "ext-mbstring": "*"
+    "ext-mbstring": "*",
+    "ext-sqlite3": "*"
   },
   "autoload": {
     "classmap": [

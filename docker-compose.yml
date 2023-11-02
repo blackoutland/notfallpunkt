@@ -10,6 +10,10 @@ services:
       - ./www:/var/www
       - ./conf/php/fpm.ini:/usr/local/etc/php/conf.d/docker-fpm.ini
       - ./conf/php/php.ini:/usr/local/etc/php/php.ini
+      - ./config.json:/config.json
+      - ./conf/system.json:/system.json
+      - ./temp:/temp
+      - ./db:/db
     networks:
       - blackoutland-net
     restart: always
@@ -22,7 +26,6 @@ services:
     hostname: blackoutland-nginx
     volumes:
       - ./www:/var/www
-      - ./conf/web/nginx-site.conf:/etc/nginx/sites-available/default
       - ./certs:/certs
       - ./conf/nginx/default.conf:/etc/nginx/conf.d/default.conf
     networks:
