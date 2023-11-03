@@ -4,6 +4,12 @@ namespace BlackoutLand\NotfallPunkt\Model;
 
 class Utils
 {
+    /** @var array */
+    private static $settings;
+
+    /**
+     * @return array
+     */
     public static function getSysData()
     {
         return [
@@ -16,21 +22,41 @@ class Utils
         ];
     }
 
-    public static function getTemplateDefaultVars()
+    /**
+     * @return array
+     */
+    public static function getSettings()
     {
         $ss = new Settings();
+        if (!self::$settings) {
+            self::$settings = $ss->getAll();
+        }
+        return self::$settings;
+    }
+
+    /**
+     * @return array
+     */
+    public static function getTemplateDefaultVars()
+    {
         return [
             'sys'      => self::getSysData(),
             'config'   => $GLOBALS['config'],
-            'settings' => $ss->getAll()
+            'settings' => self::getSettings()
         ];
     }
 
+    /**
+     * @return string
+     */
     public static function getRootDir()
     {
         return '/var/www';
     }
 
+    /**
+     * @return Sqlite
+     */
     public static function getDb()
     {
         return new Sqlite($GLOBALS['config']['db']);

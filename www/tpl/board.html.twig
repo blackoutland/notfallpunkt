@@ -2,6 +2,32 @@
 
 {% block body %}
     <div class="alert alert-warning" role="alert">
-        <h1>BOARD</h1>
+        <h1>BOARDS</h1>
+    </div>
+
+    <div>
+        {% for board in boards %}
+            <h2>#{{ board.board.id }}: {{ board.board.title }}</h2>
+            <em>{{ board.board.status }}</em>
+            <hr>
+
+            {% for post in board.posts %}
+                <div>
+                    {{ post.title }}<br>
+                    {{ post.message }}<br>
+                    {{ post.status }}<br>
+                    {{ post.ts|date("d.m.Y H:i:s") }}<br>
+                    {{ post.user_login }}<br>
+                    {{ post.user_status }}<br>
+                    {{ post.user_info }}<br>
+                    {{ post.user_id }}
+                </div>
+                <br>
+            {% endfor %}
+
+            <br>
+            Total: {{ board.count }}
+
+        {% endfor %}
     </div>
 {% endblock %}

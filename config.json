@@ -1,5 +1,6 @@
 {
   "debug": true,
   "debugSql": false,
+  "disableCache": true,
   "db": "notfallpunkt.sqlite"
 }

@@ -17,7 +17,7 @@ class Sqlite
     {
         $db = null;
         try {
-            $db = new PDO('sqlite:/db/'.$dbName);
+            $db = new PDO('sqlite:/db/' . $dbName);
         } catch (PDOException $e) {
             if (preg_match("/Could not find driver/i", $e->getMessage())) {
                 echo "<h1>PDO-Treiber fehlt in PHP-Version!</h1>";
@@ -103,6 +103,20 @@ class Sqlite
         return $this->db->query($sql);
     }
 
+    public function getOneField($sql, $fieldName, array $params = [])
+    {
+        $sth = $this->preparedQuery($sql, $params);
+        if (!$sth->columnCount()) {
+            return null;
+        }
+
+        $row = $sth->fetch(PDO::FETCH_ASSOC);
+        if (!empty($row[$fieldName])) {
+            return $row[$fieldName];
+        }
+        return null;
+    }
+
     /**
      * @param string $sql
      * @param array $params
@@ -127,7 +141,7 @@ class Sqlite
     public function preparedQuery($sql, array $params)
     {
         if ($GLOBALS['config']['debugSql']) {
-            echo "<div class=\"npdebug sql\">[SQL:".basename(__METHOD__)."] SQL='$sql', Params=".implode(", ", $params)."]</div>";
+            echo "<div class=\"npdebug sql\">[SQL:" . basename(__METHOD__) . "] SQL='$sql', Params=" . implode(", ", $params) . "]</div>";
         }
         $sth = $this->db->prepare($sql);
         $sth->execute($params);
