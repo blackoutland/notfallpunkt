@@ -14,6 +14,7 @@ services:
       - ./conf/system.json:/system.json
       - ./temp:/temp
       - ./db:/db
+      - ./fileshare:/fileshare
     networks:
       - blackoutland-net
     restart: always
