@@ -8,3 +8,7 @@ temp/
 composer.lock
 
 *.bak
+
+_design
+fileshare/*
+www/htdocs/minified
