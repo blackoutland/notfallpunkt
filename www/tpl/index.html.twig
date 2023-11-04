@@ -1,28 +1,32 @@
 {% extends 'main.html.twig' %}
 
 {% block body %}
-    <div class="alert alert-warning" role="alert">
-        {{ settings.title_home_general }}
-    </div>
-
-    {% if news_owner %}
-        <div class="alert alert-info" role="alert">
-            <strong>{{ settings.title_home_newsbox }}</strong>
-            <ul>
-                {% for news in news_owner %}
-                    {% if news.title or news.content %}
-                        <li>{{ news.ts|date("d.m.Y H:i:s") }}: {% if news.title %}
-                                <strong>{{ news.title }}</strong>{% endif %} {% if news.content %}{{ news.content }}{% endif %}
-                        </li>
-                    {% endif %}
-                {% endfor %}
-            </ul>
+    {% if home_general_show %}
+        <div class="alert alert-warning" role="alert">
+            {{ settings.home_general_title }}
         </div>
     {% endif %}
 
-    {% if infos %}
+    {% if news_owner %}
+        {% if home_newsbox_show %}
+            <div class="alert alert-info" role="alert">
+                <strong>{{ settings.home_newsbox_title }}</strong>
+                <ul>
+                    {% for news in news_owner %}
+                        {% if news.title or news.content %}
+                            <li>{{ news.ts|date("d.m.Y H:i:s") }}: {% if news.title %}
+                                    <strong>{{ news.title }}</strong>{% endif %} {% if news.content %}{{ news.content }}{% endif %}
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+    {% endif %}
+
+    {% if infos and home_infos_show%}
         <div class="alert alert-success" role="alert">
-            <strong>{{ settings.title_home_infos }}</strong>
+            <strong>{{ settings.home_infos_title }}</strong>
             <ul>
                 {% for info in infos %}
                     {% if info.text|trim %}
