@@ -1,8 +1,13 @@
 <!DOCTYPE html>
 <html lang="{{ sys.system.locale.lang }}" class="h-100">
 <head>
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/css/notfallpunkt.css">
+    {% if settings.ext_minify_css %}
+        {{ minifyCss(["/css/bootstrap.min.css", "/css/notfallpunkt.css"])|raw }}
+    {% else %}
+        <link rel="stylesheet" href="/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/css/notfallpunkt.css">
+    {% endif %}
+
     <meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no" name="viewport">
     <meta name="robots" content="noindex,nofollow">
     <title>{% block title %}{{ sys.system.name }}{% endblock %}</title>
@@ -22,22 +27,28 @@
             <div class="navbar-collapse collapse" id="navbarsExample03" style="">
                 <ul class="navbar-nav me-auto mb-2 mb-sm-0">
                     <li class="nav-item">
-                        <a class="nav-link{% if pageIndicator == 'home' %} active{% endif %}"{% if pageIndicator == 'home' %} aria-current="page"{% endif%} href="/">{{ settings.nav_home }}</a>
+                        <a class="nav-link{% if pageIndicator == 'home' %} active{% endif %}"{% if pageIndicator == 'home' %} aria-current="page"{% endif %}
+                           href="/">{{ settings.nav_home }}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link{% if pageIndicator == 'news' %} active{% endif %}"{% if pageIndicator == 'news' %} aria-current="page"{% endif%} href="/news">{{ settings.nav_news }}</a>
+                        <a class="nav-link{% if pageIndicator == 'news' %} active{% endif %}"{% if pageIndicator == 'news' %} aria-current="page"{% endif %}
+                           href="/news">{{ settings.nav_news }}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link{% if pageIndicator == 'board' %} active{% endif %}"{% if pageIndicator == 'board' %} aria-current="page"{% endif%} href="/board">{{ settings.nav_board }}</a>
+                        <a class="nav-link{% if pageIndicator == 'board' %} active{% endif %}"{% if pageIndicator == 'board' %} aria-current="page"{% endif %}
+                           href="/board">{{ settings.nav_board }}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link{% if pageIndicator == 'files' %} active{% endif %}"{% if pageIndicator == 'files' %} aria-current="page"{% endif%} href="/files">{{ settings.nav_files }}</a>
+                        <a class="nav-link{% if pageIndicator == 'files' %} active{% endif %}"{% if pageIndicator == 'files' %} aria-current="page"{% endif %}
+                           href="/files">{{ settings.nav_files }}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link{% if pageIndicator == 'knowledge' %} active{% endif %}"{% if pageIndicator == 'knowledge' %} aria-current="page"{% endif%} href="/knowledge">{{ settings.nav_knowledge }}</a>
+                        <a class="nav-link{% if pageIndicator == 'knowledge' %} active{% endif %}"{% if pageIndicator == 'knowledge' %} aria-current="page"{% endif %}
+                           href="/knowledge">{{ settings.nav_knowledge }}</a>
                     </li>
                     <li class="nav-item dropdown text-light">
-                        <a class="nav-link dropdown-toggle{% if pageIndicator == 'news' %} active{% endif %}" href="#" id="dropdown03" data-bs-toggle="dropdown" aria-expanded="false">{{ settings.nav_user }}</a>
+                        <a class="nav-link dropdown-toggle{% if pageIndicator == 'news' %} active{% endif %}" href="#"
+                           id="dropdown03" data-bs-toggle="dropdown" aria-expanded="false">{{ settings.nav_user }}</a>
                         <ul class="dropdown-menu" aria-labelledby="dropdown03">
                             <li><a class="dropdown-item" href="/login">{{ settings.nav_user_login }}</a></li>
                             <li><a class="dropdown-item" href="/signup">{{ settings.nav_user_signup }}</a></li>
@@ -59,7 +70,7 @@
     </nav>
 
     <div class="container">
-          <div>
+        <div>
             <div class="p-2 rounded">
                 <div class="col-sm-12 mx-auto">
                     {% block body %}{% endblock %}
@@ -70,17 +81,12 @@
     </div>
 </main>
 
-<script type="text/javascript" src="/js/jquery-3.7.1.min.js"></script>
-<script type="text/javascript" src="/js/bootstrap.bundle.min.js"></script>
-
-{% block footer %}{% endblock %}
-
 <footer class="footer mt-auto py-3 bg-dark">
     <div class="container">
         <span class="text-light-emphasis">
             Standort: {{ settings.location }}
             {% if settings.owner %}
-            -
+                -
                 <strong>Verantwortlich: </strong>
                 {{ settings.owner }}
             {% endif %}
@@ -88,6 +94,23 @@
         </span>
     </div>
 </footer>
+
+<script type="text/javascript">
+    const tsGenerated = {{ 'now'|date("U") }},
+        statusReloadTime = {{ settings.ext_status_reload_time }},
+        connectErrorMessage = '{{ settings.msg_connect_error|addslashes|raw }}';
+</script>
+
+{% if settings.ext_minify_css %}
+    {{ minifyJs(["/js/jquery-3.7.1.min.js","/js/jquery.blockUI.js","/js/bootstrap.bundle.min.js","/js/notfallpunkt.js"])|raw }}
+{% else %}
+    <script type="text/javascript" src="/js/jquery-3.7.1.min.js"></script>
+    <script type="text/javascript" src="/js/jquery.blockUI.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="/js/notfallpunkt.js"></script>
+{% endif %}
+
+{% block footer %}{% endblock %}
 
 </body>
 </html>

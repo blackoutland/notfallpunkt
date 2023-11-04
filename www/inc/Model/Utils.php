@@ -54,6 +54,10 @@ class Utils
         return '/var/www';
     }
 
+    public static function getHtdocsDir() {
+        return self::getRootDir().'/htdocs';
+    }
+
     /**
      * @return Sqlite
      */

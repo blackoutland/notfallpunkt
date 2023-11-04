@@ -14,3 +14,7 @@ body {
 .npdebug.sql {
 
 }
+
+body.mode_test {
+    background-image:url(/img/tile-test.gif);
+}

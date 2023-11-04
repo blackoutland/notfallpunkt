@@ -6,3 +6,5 @@
 www/vendor
 temp/
 composer.lock
+
+*.bak
