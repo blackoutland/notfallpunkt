@@ -1,14 +1,14 @@
 {% extends 'main.html.twig' %}
 
 {% block body %}
-    {% if home_general_show %}
+    {% if settings.home_general_show %}
         <div class="alert alert-warning" role="alert">
             {{ settings.home_general_title }}
         </div>
     {% endif %}
 
     {% if news_owner %}
-        {% if home_newsbox_show %}
+        {% if settings.home_newsbox_show %}
             <div class="alert alert-info" role="alert">
                 <strong>{{ settings.home_newsbox_title }}</strong>
                 <ul>
@@ -24,7 +24,7 @@
         {% endif %}
     {% endif %}
 
-    {% if infos and home_infos_show%}
+    {% if infos and settings.home_infos_show%}
         <div class="alert alert-success" role="alert">
             <strong>{{ settings.home_infos_title }}</strong>
             <ul>
