@@ -5,7 +5,7 @@
 }
 
 body {
-    background-color: #888;
+    /*background-color: #888;*/
 }
 
 .npdebug {
@@ -26,7 +26,7 @@ body.mode_test {
 }
 
 body.page-news #mainContent {
-    background-color:#ccc;
+    /*background-color:#ccc;*/
 }
 
 #testModeText {
