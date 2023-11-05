@@ -2,6 +2,7 @@
 
 namespace BlackoutLand\NotfallPunkt\Pages;
 
+use BlackoutLand\NotfallPunkt\Model\EmergencyInfos;
 use BlackoutLand\NotfallPunkt\Model\GeneralInfos;
 use BlackoutLand\NotfallPunkt\Model\OwnerNews;
 use BlackoutLand\NotfallPunkt\Model\Page;
@@ -23,19 +24,24 @@ class Home extends Page
             $renderer = new Renderer();
             $data     = [
                 'path'   => $_SERVER['REQUEST_URI'],
-                'params' => str_replace('_page='.$_GET['_page'].'&', '', $_SERVER['QUERY_STRING'])
+                'params' => str_replace('_page=' . $_GET['_page'] . '&', '', $_SERVER['QUERY_STRING'])
             ];
 
             parent::output($renderer->render('404.html.twig', $data), true);
         }
 
-        // Get data
+        // NEWS
         $on              = new OwnerNews();
         $newsCount       = $on->getNewsCount(true);
         $newsToShowCount = $this->settings['home_newslist_count'];
         $paginator       = $this->getPaginator($newsCount, $newsToShowCount);
         $ownerNews       = $on->getAll(true, $paginator->getLength(), $paginator->getOffset());
 
+        // EMERGENCY INFOS
+        $ei             = new EmergencyInfos();
+        $emergencyInfos = $ei->getAll();
+
+        // GENERAL INFOS
         $in    = new GeneralInfos();
         $infos = $in->getAll();
 
@@ -43,6 +49,7 @@ class Home extends Page
         $data     = [
             'more_news_available' => $newsCount > $newsToShowCount,
             'news_owner'          => $ownerNews,
+            'emergency_infos'     => $emergencyInfos,
             'infos'               => $infos,
             'pageIndicator'       => $this->pageIndicator
         ];

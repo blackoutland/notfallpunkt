@@ -1,0 +1,12 @@
+{% macro message(ts, title, content) %}
+    {% if ts %}
+        <small class="text-light nfp_ts" data-ts="{{ ts }}"
+               title="{{ ts|date(settings.date_format_dmyhis) }}">{{ ts|date(settings.date_format_dmyhis) }}</small>
+    {% endif %}
+    {% if title %}
+        <br>
+        {% if title %}<strong>{{ title }}</strong>{% endif %}
+    {% endif %}
+
+    {% if content %}<p>{{ content }}</p>{% endif %}
+{% endmacro %}

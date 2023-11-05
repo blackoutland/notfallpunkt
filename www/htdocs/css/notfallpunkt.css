@@ -50,3 +50,13 @@ nav span.nfp_update_count {
 nav span.nfp_update_count.visible {
     display: inline;
 }
+.nfp_accordionGreen .accordion-button:not(.collapsed) {
+    background-color:var(--bs-green);
+}
+
+ul.nfp_list_noleftpad {
+    padding-left:1rem;
+}
+ul.nfp_list_nomessagepadding p {
+    margin-bottom:0.2rem;
+}
