@@ -19,6 +19,7 @@ echo json_encode(
             // TODO: Whenever someone updates news etc. send message
         ],
         "updateCounts" => [
+            "home"      => 0,
             "news"      => 0,
             "board"     => 0,
             "files"     => 0,

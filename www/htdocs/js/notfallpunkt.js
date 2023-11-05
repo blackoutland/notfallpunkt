@@ -6,7 +6,8 @@ let requestRunning = false,
     navBoardNumberEl = null,
     navFileNumberEl = null,
     navKnowledgeNumberEl = null,
-    navUserNumberEl = null;
+    navUserNumberEl = null,
+    navHomeEl = null;
 
 function htmlDecode(value) {
     return $('<div/>').html(value).text();
@@ -64,6 +65,12 @@ function pullLiveStatus() {
                         } else {
                             navUserNumberEl.removeClass('visible');
                         }
+                        if (data.updateCounts.home) {
+                            navHomeEl.html(data.updateCounts.home).addClass('visible');
+                        } else {
+                            navHomeEl.removeClass('visible');
+                        }
+
                     }
 
                 } else {
@@ -111,6 +118,7 @@ $(document).ready(function () {
     navFileNumberEl = $('#nfpUpdateCount_files');
     navKnowledgeNumberEl = $('#nfpUpdateCount_knowledge');
     navUserNumberEl = $('#nfpUpdateCount_user');
+    navHomeEl = $('#nfpUpdateCount_home');
 
     // Update live status
     setInterval(pullLiveStatus, statusReloadTime * 1000);
@@ -129,8 +137,4 @@ $(document).ready(function () {
             }
         }
     }
-
 });
-
-
-// mode_test
