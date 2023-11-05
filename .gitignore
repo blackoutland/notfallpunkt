@@ -5,7 +5,7 @@
 
 www/vendor
 temp/
-composer.lock
+#composer.lock
 
 *.bak
 
