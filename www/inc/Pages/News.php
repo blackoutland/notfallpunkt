@@ -11,29 +11,12 @@ class News extends Page
 {
     protected $pageIndicator = 'news';
 
-    public function render()
+    public function render($subPage = null)
     {
         parent::render();
 
         $on        = new OwnerNews();
         $paginator = $this->getPaginator($on->getNewsCount(true), $this->settings['news_entries_per_page']);
-
-        /*
-        $paginator->isFirst(); // is this the first page?
-        $paginator->isLast(); // is this the last page?
-        $paginator->getPage(); // current page number
-        $paginator->getFirstPage(); // the first page number
-        $paginator->getLastPage(); // the last page number
-        $paginator->getFirstItemOnPage(); // sequence number of the first item on the page
-        $paginator->getLastItemOnPage(); // sequence number of the last item on the page
-        $paginator->getPageIndex(); // current page number if numbered from 0
-        $paginator->getPageCount(); // the total number of pages
-        $paginator->getItemsPerPage(); // the number of records per page
-        $paginator->getItemCount(); // the total number of records (if available)
-
-        $paginator->getLength(),
-	    $paginator->getOffset(),
-        */
 
         $renderer  = new Renderer();
         $ownerNews = $on->getAll(true, $paginator->getLength(), $paginator->getOffset());

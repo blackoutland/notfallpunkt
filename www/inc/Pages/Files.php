@@ -9,7 +9,7 @@ class Files extends Page
 {
     protected $pageIndicator = 'files';
 
-    public function render()
+    public function render($subPage = null)
     {
         parent::render();
 

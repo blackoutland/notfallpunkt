@@ -9,7 +9,7 @@ class Knowledge extends Page
 {
     protected $pageIndicator = 'knowledge';
 
-    public function render()
+    public function render($subPage = null)
     {
         parent::render();
 

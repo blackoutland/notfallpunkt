@@ -44,8 +44,17 @@ switch ($path) {
         $page = 'User';
         $function = 'logout';
         break;
+    case '/users':
+        $page = 'User';
+        $action = 'list';
+        break;
+    case '/':
+    case '/home':
+        $page = 'Home';
+        break;
     default:
         $page = 'Home';
+        $action = 'notfound';
         break;
 }
 

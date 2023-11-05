@@ -14,6 +14,12 @@
         <link rel="stylesheet" href="/css/notfallpunkt.css">
     {% endif %}
 
+    {# Favicon #}
+    <link rel="apple-touch-icon" sizes="180x180" href="/site/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/site/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/site/favicon-16x16.png">
+    <link rel="manifest" href="/site/site.webmanifest">
+
     <meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no" name="viewport">
     <meta name="robots" content="noindex,nofollow">
     <title>{% block title %}{{ sys.system.name }}{% endblock %}</title>
@@ -24,7 +30,7 @@
     <nav class="navbar navbar-expand-sm navbar-dark bg-dark" aria-label="Third navbar example">
         <div class="container-fluid">
             <a class="navbar-brand" href="/">{{ sys.system.nameShort }}</a>
-            <span id="testModeText">{{ settings.nav_testmode_text }}</span>
+            <span id="testModeText" class="badge rounded-pill bg-warning">{{ settings.nav_testmode_text }}</span>
             <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarsExample03" aria-controls="navbarsExample03" aria-expanded="false"
                     aria-label="Toggle navigation">
@@ -39,24 +45,25 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link{% if pageIndicator == 'news' %} active{% endif %}"{% if pageIndicator == 'news' %} aria-current="page"{% endif %}
-                           href="/news">{{ settings.nav_news }}</a>
+                           href="/news">{{ settings.nav_news }}<span class="badge rounded-pill bg-primary nfp_update_count" id="nfpUpdateCount_news">0</span></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link{% if pageIndicator == 'board' %} active{% endif %}"{% if pageIndicator == 'board' %} aria-current="page"{% endif %}
-                           href="/board">{{ settings.nav_board }}</a>
+                           href="/board">{{ settings.nav_board }}<span class="badge rounded-pill bg-primary nfp_update_count" id="nfpUpdateCount_board">0</span></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link{% if pageIndicator == 'files' %} active{% endif %}"{% if pageIndicator == 'files' %} aria-current="page"{% endif %}
-                           href="/files">{{ settings.nav_files }}</a>
+                           href="/files">{{ settings.nav_files }}<span class="badge rounded-pill bg-primary nfp_update_count" id="nfpUpdateCount_files">0</span></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link{% if pageIndicator == 'knowledge' %} active{% endif %}"{% if pageIndicator == 'knowledge' %} aria-current="page"{% endif %}
-                           href="/knowledge">{{ settings.nav_knowledge }}</a>
+                           href="/knowledge">{{ settings.nav_knowledge }}<span class="badge rounded-pill bg-primary nfp_update_count" id="nfpUpdateCount_knowledge">0</span></a>
                     </li>
                     <li class="nav-item dropdown text-light">
                         <a class="nav-link dropdown-toggle{% if pageIndicator == 'news' %} active{% endif %}" href="#"
-                           id="dropdown03" data-bs-toggle="dropdown" aria-expanded="false">{{ settings.nav_user }}</a>
+                           id="dropdown03" data-bs-toggle="dropdown" aria-expanded="false">{{ settings.nav_user }}<span class="badge rounded-pill bg-primary nfp_update_count" id="nfpUpdateCount_user">0</span></a>
                         <ul class="dropdown-menu" aria-labelledby="dropdown03">
+                            <li><a class="dropdown-item" href="/users">{{ settings.nav_user_list }}</a></li>
                             <li><a class="dropdown-item" href="/login">{{ settings.nav_user_login }}</a></li>
                             <li><a class="dropdown-item" href="/signup">{{ settings.nav_user_signup }}</a></li>
                             <li><a class="dropdown-item" href="/logout">{{ settings.nav_user_logout }}</a></li>
@@ -90,15 +97,19 @@
 
 <footer class="footer mt-auto py-3 bg-dark">
     <div class="container">
-        <span class="text-light-emphasis">
-            Standort: {{ settings.location }}
-            {% if settings.owner %}
-                -
-                <strong>Verantwortlich: </strong>
-                {{ settings.owner }}
-            {% endif %}
-            🕑 {{ 'now'|date("d.m.Y H:i:s") }} %%CACHE_INFO%%
-        </span>
+        <div>
+            <div>
+                <div class="col-sm-12 mx-auto">
+                    Standort: {{ settings.location }}
+                    {% if settings.owner %}
+                        -
+                        <strong>Verantwortlich: </strong>
+                        {{ settings.owner }}
+                    {% endif %}
+                    🕑 {{ 'now'|date("d.m.Y H:i:s") }} %%CACHE_INFO%%
+                </div>
+            </div>
+        </div>
     </div>
 </footer>
 
@@ -109,11 +120,12 @@
 </script>
 
 {% if settings.ext_minify_js %}{# @ at the beginning indicates "concatenate only, do not pack" #}
-    {{ minifyJs(["/js/jquery-3.7.1.min.js","@/js/jquery.blockUI.js","@/js/bootstrap.bundle.min.js","/js/notfallpunkt.js"])|raw }}
+    {{ minifyJs(["/js/jquery-3.7.1.min.js","@/js/jquery.blockUI.js","@/js/bootstrap.bundle.min.js","/js/moment-with-locales.js", "/js/notfallpunkt.js"])|raw }}
 {% else %}
     <script type="text/javascript" src="/js/jquery-3.7.1.min.js"></script>
     <script type="text/javascript" src="/js/jquery.blockUI.js"></script>
     <script type="text/javascript" src="/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="/js/moment-with-locales.js"></script>
     <script type="text/javascript" src="/js/notfallpunkt.js"></script>
 {% endif %}
 

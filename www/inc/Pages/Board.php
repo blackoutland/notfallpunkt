@@ -10,7 +10,7 @@ class Board extends Page
 {
     protected $pageIndicator = 'board';
 
-    public function render()
+    public function render($subPage = null)
     {
         parent::render();
 

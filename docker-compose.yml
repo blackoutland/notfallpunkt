@@ -23,12 +23,13 @@ services:
 
   blackoutland-notfallpunkt-nginx:
     image: nginx:1.25.3-alpine3.18
-    container_name: blackoutland-nginx
-    hostname: blackoutland-nginx
+    container_name: blackoutland-notfallpunkt-nginx
+    hostname: blackoutland-notfallpunkt-nginx
     volumes:
       - ./www:/var/www
       - ./certs:/certs
       - ./conf/nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ./conf/nginx/nginx.conf:/etc/nginx/nginx.conf
     networks:
       - blackoutland-net
     restart: always

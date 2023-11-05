@@ -1,5 +1,7 @@
 {% extends 'main.html.twig' %}
 
+{% block title %}{{ sys.system.name }}{% endblock %}
+
 {% block body %}
     {% if settings.home_general_show %}
         <div class="alert alert-warning" role="alert">
@@ -9,23 +11,50 @@
 
     {% if news_owner %}
         {% if settings.home_newsbox_show %}
-            <div class="alert alert-info" role="alert">
-                <strong>{{ settings.home_newsbox_title }}</strong>
-                <ul>
-                    {% for news in news_owner %}
-                        {% if news.title or news.content %}
-                            <li>{{ news.ts|date("d.m.Y H:i:s") }}: {% if news.title %}
-                                    <strong>{{ news.title }}</strong>{% endif %} {% if news.content %}{{ news.content }}{% endif %}
-                            </li>
-                        {% endif %}
-                    {% endfor %}
-                </ul>
+
+            <div class="accordion" id="accordionNews">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingOne">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            {{ settings.home_newsbox_title }}
+                        </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                         data-bs-parent="#accordionExample" style="">
+                        <div class="accordion-body">
+
+                            <ul class="nfpList">
+                                {% for news in news_owner %}
+                                    {% if news.title or news.content %}
+                                        <li>
+                                            <small class="text-light nfp_ts" data-ts="{{ news.ts }}" title="{{ news.ts|date(settings.date_format_dmyhis) }}">{{ news.ts|date(settings.date_format_dmyhis) }}</small>
+                                            <br>
+                                            {% if news.title %}<strong>{{ news.title }}</strong>{% endif %}
+                                            <p>
+                                            {% if news.content %}{{ news.content }}{% endif %}
+                                            </p>
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+
+                            {% if more_news_available %}
+                                <a class="btn btn-primary btn-sm" href="/news" role="button">
+                                    {{ settings.text_show_all }}
+                                </a>
+                            {% endif %}
+
+                        </div>
+                    </div>
+                </div>
             </div>
+
         {% endif %}
     {% endif %}
 
-    {% if infos and settings.home_infos_show%}
-        <div class="alert alert-success" role="alert">
+    {% if infos and settings.home_infos_show %}
+        <div class="alert alert-success mt-4" role="alert">
             <strong>{{ settings.home_infos_title }}</strong>
             <ul>
                 {% for info in infos %}

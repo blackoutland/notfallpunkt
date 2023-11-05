@@ -26,19 +26,33 @@ class Page
      */
     protected $settings = [];
 
+    protected $cacheRelatedQueryParams = [];
+
     public function __construct()
     {
         $this->settings = Utils::getSettings();
     }
 
-    private function getCacheFileName()
+    private function getCacheFileName($subPage = null)
     {
-        return '/temp/pagecache_' . $this->pageIndicator . '_' . $this->cacheId . '.cache';
+        // Consider query params for caching!
+        $paramString = '';
+        $params      = [];
+        if (count($this->cacheRelatedQueryParams)) {
+            foreach ($this->cacheRelatedQueryParams as $str) {
+                if (!empty($_GET[$str])) {
+                    $params[] = $str . '-' . $_GET[$str];
+                }
+            }
+            $paramString = '-' . md5(implode('|', $params));
+        }
+
+        return '/temp/pagecache_' . $this->pageIndicator . '_' . $this->cacheId . $subPage . $paramString . '.cache';
     }
 
-    public function render()
+    public function render($subPage = null)
     {
-        $cacheFile = $this->getCacheFileName();
+        $cacheFile = $this->getCacheFileName($subPage);
         if (file_exists($cacheFile) && !$GLOBALS['config']['disableCache']) {
             header("Content-Type: text/html");
             $content = file_get_contents($cacheFile);
@@ -58,7 +72,7 @@ class Page
         return $this->pageIndicator;
     }
 
-    public function output($output)
+    public function output($output, $exit = false)
     {
         if ($GLOBALS['config']['disableCache']) {
             $output = str_replace('%%CACHE_INFO%%', '(fresh, cache disabled)', $output);
@@ -68,6 +82,10 @@ class Page
         }
 
         echo $output;
+
+        if ($exit) {
+            exit();
+        }
     }
 
 

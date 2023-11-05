@@ -16,3 +16,7 @@ TODO:
 Bootstrap 5.3.2
 Bootstrap Themes: https://bootswatch.com/
 
+Test caching w/ query params!
+Benutzerliste / private Nachrichten unter Nutzern...
+
+
