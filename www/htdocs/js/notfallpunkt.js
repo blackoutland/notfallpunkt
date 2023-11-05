@@ -21,10 +21,13 @@ function pullLiveStatus() {
                 wasOffline = false;
                 $.unblockUI();
                 if (data.success) {
+                    const body = $('body');
                     if (data.isTestMode) {
-                        $('body').addClass('mode_test');
+                        if (!body.hasClass('mode_test')) {
+                            body.addClass('mode_test');
+                        }
                     } else {
-                        $('body').removeClass('mode_test');
+                        body.removeClass('mode_test');
                     }
                 } else {
                     console.error("Requesting status failed!"); // TODO: Show error message

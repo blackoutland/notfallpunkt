@@ -12,3 +12,7 @@ TODO:
 
 * Runterfahren über Dashboard / + Dateisystem als RW? in RAM kopieren?
 * GPIO-Port zur Scharfschaltung (Abschaltung Testbetrieb)
+
+Bootstrap 5.3.2
+Bootstrap Themes: https://bootswatch.com/
+

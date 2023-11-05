@@ -95,8 +95,12 @@ class Renderer
 
         // @see https://packagist.org/packages/matthiasmullie/minify
         $function2 = new TwigFunction('minifyJs', function ($jsFiles) {
-            $hashes = [];
+            $concatenatedFiles = [];
+            $hashes            = [];
             foreach ($jsFiles as $jsFile) {
+                if (preg_match("/^@(.*)/", $jsFile, $m)) {
+                    $jsFile = $m[1];
+                }
                 $hashes[] = md5_file(Utils::getHtdocsDir() . '/' . $jsFile);
             }
             $hash      = md5(implode('|', $hashes));
@@ -105,13 +109,22 @@ class Renderer
             if (!file_exists($cacheFile)) {
                 $minifier = new Minify\JS();
                 foreach ($jsFiles as $jsFile) {
-                    $minifier->add(Utils::getHtdocsDir() . '/' . $jsFile);
+                    if (preg_match("/^@(.*)/", $jsFile, $m)) {
+                        $concatenatedFiles[] = Utils::getHtdocsDir() . '/' . $m[1];
+                    } else {
+                        $minifier->add(Utils::getHtdocsDir() . '/' . $jsFile);
+                    }
                 }
                 $hash = md5(implode('|', $hashes));
                 $minifier->minify($cacheFile);
+                if ($concatenatedFiles) {
+                    foreach ($concatenatedFiles as $file) {
+                        file_put_contents($cacheFile, "\n" . file_get_contents($file), FILE_APPEND);
+                    }
+                }
             }
 
-            return '<link rel="stylesheet" href="/minified/' . $hash . '.js">';
+            return '<script type="text/javascript" src="/minified/' . $hash . '.js">';
         });
         $this->twig->addFunction($function2);
 

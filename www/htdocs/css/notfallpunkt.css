@@ -1,3 +1,9 @@
+:root {
+    --bs-pagination-active-color:red;
+    --bs-pagination-active-bg:blue;
+    --bs-pagination-active-border-color:orange;
+}
+
 body {
     background-color: #888;
 }
@@ -17,4 +23,18 @@ body {
 
 body.mode_test {
     background-image:url(/img/tile-test.gif);
+}
+
+body.page-news #mainContent {
+    background-color:#ccc;
+}
+
+#testModeText {
+    color:red;
+    font-weight:bold;
+    display:none;
+}
+
+body.mode_test #testModeText {
+    display:initial;
 }

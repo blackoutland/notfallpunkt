@@ -17,7 +17,7 @@ class Home extends Page
 
         // Get data
         $on        = new OwnerNews();
-        $ownerNews = $on->getAll(true);
+        $ownerNews = $on->getAll(true); // TODO: Maximum number of items!
 
         $in    = new GeneralInfos();
         $infos = $in->getAll();

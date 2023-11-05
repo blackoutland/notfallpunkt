@@ -1,8 +1,14 @@
 <!DOCTYPE html>
 <html lang="{{ sys.system.locale.lang }}" class="h-100">
 <head>
+    {% set themeFile = null %}
+    {% if settings.theme %}
+        {% set themeFile = '/css/bs-themes/bs-' ~ settings.theme ~ '.min.css' %}
+    {% else %}
+        {% set themeFile = '/css/bootstrap.min.css' %}
+    {% endif %}
     {% if settings.ext_minify_css %}
-        {{ minifyCss(["/css/bootstrap.min.css", "/css/notfallpunkt.css"])|raw }}
+        {{ minifyCss([themeFile, "/css/notfallpunkt.css"])|raw }}
     {% else %}
         <link rel="stylesheet" href="/css/bootstrap.min.css">
         <link rel="stylesheet" href="/css/notfallpunkt.css">
@@ -13,11 +19,12 @@
     <title>{% block title %}{{ sys.system.name }}{% endblock %}</title>
     {% block header %}{% endblock %}
 </head>
-<body class="d-flex flex-column h-100">
+<body class="d-flex flex-column h-100 page-{{ pageIndicator }}">
 <main>
     <nav class="navbar navbar-expand-sm navbar-dark bg-dark" aria-label="Third navbar example">
         <div class="container-fluid">
             <a class="navbar-brand" href="/">{{ sys.system.nameShort }}</a>
+            <span id="testModeText">{{ settings.nav_testmode_text }}</span>
             <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarsExample03" aria-controls="navbarsExample03" aria-expanded="false"
                     aria-label="Toggle navigation">
@@ -69,7 +76,7 @@
         </div>
     </nav>
 
-    <div class="container">
+    <div class="container" id="mainContent">
         <div>
             <div class="p-2 rounded">
                 <div class="col-sm-12 mx-auto">
@@ -101,8 +108,8 @@
         connectErrorMessage = '{{ settings.msg_connect_error|addslashes|raw }}';
 </script>
 
-{% if settings.ext_minify_css %}
-    {{ minifyJs(["/js/jquery-3.7.1.min.js","/js/jquery.blockUI.js","/js/bootstrap.bundle.min.js","/js/notfallpunkt.js"])|raw }}
+{% if settings.ext_minify_js %}{# @ at the beginning indicates "concatenate only, do not pack" #}
+    {{ minifyJs(["/js/jquery-3.7.1.min.js","@/js/jquery.blockUI.js","@/js/bootstrap.bundle.min.js","/js/notfallpunkt.js"])|raw }}
 {% else %}
     <script type="text/javascript" src="/js/jquery-3.7.1.min.js"></script>
     <script type="text/javascript" src="/js/jquery.blockUI.js"></script>

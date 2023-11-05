@@ -2,6 +2,8 @@
 
 namespace BlackoutLand\NotfallPunkt\Model;
 
+use Nette\Utils\Paginator;
+
 class Page
 {
     /**
@@ -66,5 +68,46 @@ class Page
         }
 
         echo $output;
+    }
+
+
+    /**
+     * @param int $totalCount
+     * @return Paginator
+     */
+    public function getPaginator($totalCount, $itemsPerPage)
+    {
+
+        $currentPage = 1;
+        if (!empty($_GET['page'])) {
+            $currentPage = (int)$_GET['page'];
+            if (!$currentPage) {
+                $currentPage = 1;
+            }
+        }
+
+        $paginator = new Paginator;
+        $paginator->setPage($currentPage); // the number of the current page (numbered from 1)
+        $paginator->setItemsPerPage($itemsPerPage); // the number of records per page
+        $paginator->setItemCount($totalCount); // the total number of records (if available)
+
+        /*
+        $paginator->isFirst(); // is this the first page?
+        $paginator->isLast(); // is this the last page?
+        $paginator->getPage(); // current page number
+        $paginator->getFirstPage(); // the first page number
+        $paginator->getLastPage(); // the last page number
+        $paginator->getFirstItemOnPage(); // sequence number of the first item on the page
+        $paginator->getLastItemOnPage(); // sequence number of the last item on the page
+        $paginator->getPageIndex(); // current page number if numbered from 0
+        $paginator->getPageCount(); // the total number of pages
+        $paginator->getItemsPerPage(); // the number of records per page
+        $paginator->getItemCount(); // the total number of records (if available)
+
+        $paginator->getLength(),
+	    $paginator->getOffset(),
+        */
+
+        return $paginator;
     }
 }

@@ -1,7 +1,53 @@
 {% extends 'main.html.twig' %}
 
 {% block body %}
-    <div class="alert alert-warning" role="alert">
-        <h1>{{ settings.news_title }}</h1>
-    </div>
+    <h1>{{ settings.news_title }}</h1>
+
+    {% for post in news %}
+        <div class="row mb-2">
+            <div class="col-md-12">
+                <div class="row g-0 border rounded overflow-hidden flex-md-row mb-3 shadow-sm h-md-250 position-relative">
+                    <div class="col p-4 d-flex flex-column position-static">
+                        <!-- {{ post.status }} -->
+                        <h3 class="mb-0">{{ post.title }}</h3>
+                        <div class="mb-1 text-muted">{{ post.ts|date("d.m.Y H:i:s") }}</div>
+                        <p class="card-text mb-1">{{ post.content }}</p>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    {% endfor %}
+
+    {#
+    'paginator'     => [
+    'pageCount'   => $paginator->getPageCount(),
+    'page'        => $paginator->getPage(),
+    'isFirst'     => $paginator->isFirst(),
+    'isLast'      => $paginator->isLast(),
+    'resultCount' => $paginator->getItemCount()
+    ]
+    #}
+
+    <nav aria-label="results-nav">
+        <ul class="pagination justify-content-center">
+            <li class="page-item{% if paginator.isFirstPage %} disabled{% endif %}">
+                <a class="page-link"
+                   href="{% if paginator.isFirstPage %}#{% else %}/news?page={{ paginator.prevPage }}{% endif %}"
+                   tabindex="-1" aria-disabled="true">&laquo;</a>
+            </li>
+            {% set pageNo = 0 %}
+            {% for page in 0..paginator.pageCount - 1 %}
+                {% set pageNo = pageNo + 1 %}
+                <li class="page-item{% if pageNo == paginator.page %} active{% endif %}"{% if pageNo == paginator.page %} aria-current="page"{% endif %}>
+                    <a class="page-link" href="/news?page={{ pageNo }}">{{ pageNo }}</a></li>
+            {% endfor %}
+            <li class="page-item{% if paginator.isLastPage %} disabled{% endif %}">
+                <a class="page-link"
+                   href="{% if paginator.isFirstPage %}#{% else %}/news?page={{ paginator.nextPage }}{% endif %}">&raquo;</a>
+            </li>
+        </ul>
+    </nav>
+
 {% endblock %}

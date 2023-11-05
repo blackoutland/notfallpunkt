@@ -28,4 +28,17 @@ class OwnerNews
 
         return $this->db->getAll($sql, $params);
     }
+
+    public function getNewsCount($onlyPublic = true)
+    {
+        $params   = [];
+        $sql      = "SELECT COUNT(*) AS count FROM news_owner";
+
+        if ($onlyPublic) {
+            $sql      .= ' WHERE status = ? ';
+            $params[] = 'PUBLIC';
+        }
+
+        return $this->db->getOneField($sql, 'count', $params);
+    }
 }
