@@ -2,5 +2,6 @@
   "debug": true,
   "debugSql": false,
   "disableCache": true,
-  "db": "notfallpunkt.sqlite"
+  "db": "notfallpunkt.sqlite",
+  "sessionLifetimeSeconds": 86400
 }

@@ -10,4 +10,44 @@
             </div>
         </div>
     </div>
+
+    {% for usr in users %}
+        {% if usr.status == 'ADMIN' %}
+            <div class="row mb-2">
+                <div class="col-md-12">
+                    <div class="card border-success mb-3">
+                        <div class="card-header">{{ settings.user_title_admin }}</div>
+                        <div class="card-body">
+                            <h4 class="card-title">{{ usr.login }}</h4>
+                            <p class="card-text">{{ usr.info }}<br>{{ settings.user_title_last_login }}:
+                                <span class="nfp_ts" data-ts="{{ usr.ts_last_login }}"
+                                      title="{{ usr.ts_last_login|date("d.m.Y H:i:s") }}">{{ usr.ts_last_login|date("d.m.Y H:i:s") }}</span>
+                            </p>
+                            <a class="btn btn-primary" href="/message/send?to={{ usr.login }}"><i class="fa fa-envelope"></i> {{ settings.user_profile_button_send_message }}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <div class="row mb-2">
+                <div class="col-md-12">
+                    <div class="row g-0 border rounded overflow-hidden flex-md-row mb-3 shadow-sm h-md-250 position-relative">
+                        <div class="col p-4 d-flex flex-column position-static">
+                            <strong>{{ usr.login }} </strong>
+                            <p class="card-text mb-1">{{ usr.info }}</p>
+                            <div class="mb-1 text-muted">{{ settings.user_title_last_login }}:
+                                {% if not usr.ts_last_login %}
+                                    {{ settings.user_title_not_logged_in }}
+                                {% else %}
+                                    <span class="nfp_ts" data-ts="{{ usr.ts_last_login }}"
+                                          title="{{ usr.ts_last_login|date("d.m.Y H:i:s") }}">{{ usr.ts_last_login|date("d.m.Y H:i:s") }}</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    {% endfor %}
+
 {% endblock %}

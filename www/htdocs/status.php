@@ -7,13 +7,16 @@ require_once __DIR__ . '/../inc/bootstrap.php';
 $settings = Utils::getSettings();
 
 header("Content-Type: application/json");
+
+$loginUserData = $GLOBALS['UserManager']->getLoggedInUserData();
+
 echo json_encode(
     [
         'success'      => true,
         'isTestMode'   => (bool)$settings['is_test_mode'],
         'user'         => [
-            'isLoggedIn' => false,
-            'userName'   => null
+            'isLoggedIn' => !!$loginUserData,
+            'userName'   => $loginUserData ? $loginUserData['login'] : null
         ],
         "updates"      => [
             // TODO: Whenever someone updates news etc. send message

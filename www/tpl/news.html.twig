@@ -28,16 +28,6 @@
         </div>
     {% endfor %}
 
-    {#
-    'paginator'     => [
-    'pageCount'   => $paginator->getPageCount(),
-    'page'        => $paginator->getPage(),
-    'isFirst'     => $paginator->isFirst(),
-    'isLast'      => $paginator->isLast(),
-    'resultCount' => $paginator->getItemCount()
-    ]
-    #}
-
     <nav aria-label="results-nav">
         <ul class="pagination justify-content-center">
             <li class="page-item{% if paginator.isFirstPage %} disabled{% endif %}">

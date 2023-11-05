@@ -22,6 +22,22 @@ class Utils
         ];
     }
 
+    public static function isLoggedIn()
+    {
+        if (empty($GLOBALS['UserManager'])) {
+            return false;
+        }
+        return $GLOBALS['UserManager']->isLoggedIn();
+    }
+
+    public static function getLoggedInUser()
+    {
+        if (!self::isLoggedIn()) {
+            return null;
+        }
+        return $GLOBALS['UserManager']->getLoggedInUserData();
+    }
+
     /**
      * @return array
      */
@@ -34,6 +50,15 @@ class Utils
         return self::$settings;
     }
 
+    public static function getSetting($name)
+    {
+        $settings = self::getSettings();
+        if (isset($settings[$name])) {
+            return $settings[$name];
+        }
+        return null;
+    }
+
     /**
      * @return array
      */
@@ -42,7 +67,8 @@ class Utils
         return [
             'sys'      => self::getSysData(),
             'config'   => $GLOBALS['config'],
-            'settings' => self::getSettings()
+            'settings' => self::getSettings(),
+            'user'     => self::getLoggedInUser()
         ];
     }
 
@@ -54,8 +80,9 @@ class Utils
         return '/var/www';
     }
 
-    public static function getHtdocsDir() {
-        return self::getRootDir().'/htdocs';
+    public static function getHtdocsDir()
+    {
+        return self::getRootDir() . '/htdocs';
     }
 
     /**
@@ -64,5 +91,12 @@ class Utils
     public static function getDb()
     {
         return new Sqlite($GLOBALS['config']['db']);
+    }
+
+    public static function redirectTo($path, $code = 302)
+    {
+        header("HTTP/1.1 Moved");
+        header("Location: $path");
+        exit;
     }
 }

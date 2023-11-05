@@ -103,6 +103,17 @@ class Sqlite
         return $this->db->query($sql);
     }
 
+    public function getOne($sql, array $params = [])
+    {
+        $sth = $this->preparedQuery($sql, $params);
+        if (!$sth->columnCount()) {
+            return null;
+        }
+
+        return $sth->fetch(PDO::FETCH_ASSOC);
+
+    }
+
     public function getOneField($sql, $fieldName, array $params = [])
     {
         $sth = $this->preparedQuery($sql, $params);

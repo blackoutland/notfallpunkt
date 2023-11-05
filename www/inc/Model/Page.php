@@ -53,7 +53,7 @@ class Page
     public function render($subPage = null)
     {
         $cacheFile = $this->getCacheFileName($subPage);
-        if (file_exists($cacheFile) && !$GLOBALS['config']['disableCache']) {
+        if (!Utils::isLoggedIn() && !$GLOBALS['config']['disableCache'] && file_exists($cacheFile)) {
             header("Content-Type: text/html");
             $content = file_get_contents($cacheFile);
             $content = str_replace('%%CACHE_INFO%%', '(from cache)', $content);
@@ -76,6 +76,8 @@ class Page
     {
         if ($GLOBALS['config']['disableCache']) {
             $output = str_replace('%%CACHE_INFO%%', '(fresh, cache disabled)', $output);
+        } elseif (Utils::isLoggedIn()) {
+            $output = str_replace('%%CACHE_INFO%%', '(fresh, logged-in user)', $output);
         } else {
             file_put_contents($this->getCacheFileName(), $output);
             $output = str_replace('%%CACHE_INFO%%', '(fresh)', $output);
@@ -95,7 +97,6 @@ class Page
      */
     public function getPaginator($totalCount, $itemsPerPage)
     {
-
         $currentPage = 1;
         if (!empty($_GET['page'])) {
             $currentPage = (int)$_GET['page'];

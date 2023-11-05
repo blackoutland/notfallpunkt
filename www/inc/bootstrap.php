@@ -1,5 +1,7 @@
 <?php
 
+use Aura\Session\SessionFactory;
+use BlackoutLand\NotfallPunkt\Model\UserManager;
 use Whoops\Handler\PrettyPageHandler;
 use Whoops\Run;
 
@@ -15,3 +17,8 @@ if (DEBUG) {
     $whoops->pushHandler(new PrettyPageHandler);
     $whoops->register();
 }
+
+// Session
+// TODO: Only do this is a logged in cookie exists
+$GLOBALS['UserManager'] = new UserManager();
+$GLOBALS['UserManager']->initializeSession();
