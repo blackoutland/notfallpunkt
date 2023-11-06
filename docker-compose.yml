@@ -39,6 +39,18 @@ services:
     env_file:
       - .env
 
+  blackoutland-notfallpunkt-memcached:
+    image: memcached:1.6.22-alpine
+    container_name: blackoutland-notfallpunkt-memcached
+    hostname: blackoutland-notfallpunkt-memcached
+    networks:
+      - blackoutland-net
+    restart: always
+    ports:
+      - 11211:11211
+    env_file:
+      - .env
+
 networks:
   blackoutland-net:
     external:
