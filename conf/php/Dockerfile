@@ -3,7 +3,11 @@ FROM php:fpm-bullseye
 # Install dependencies
 RUN apt-get update && apt-get install -y git zlib1g-dev libjpeg-dev libpng-dev libonig-dev libcurl4-openssl-dev libicu-dev libsqlite3-dev libzip-dev
 
-RUN docker-php-ext-install pdo_mysql gd mbstring curl fileinfo iconv intl zip unzip 7z
+RUN docker-php-ext-install pdo_mysql gd mbstring curl fileinfo iconv intl zip
+
+RUN apt-get install -y unzip libz-dev libmemcached-dev
+
+RUN pecl install memcached && docker-php-ext-enable memcached
 
 # Get latest Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
