@@ -143,4 +143,18 @@ class UserManager
         $statusString = implode(', ', $statuses);
         return $this->db->getAll("SELECT * FROM users WHERE status IN ($statusString)", []);
     }
+
+    /**
+     * @param bool $onlyActive
+     * @return int
+     */
+    public function getUserCount($onlyActive = true)
+    {
+        $statuses = ["'ADMIN'"];
+        if ($onlyActive) {
+            $statuses[] = "'ACTIVE'";
+        }
+        $statusString = implode(', ', $statuses);
+        return (int)$this->db->getOneField("SELECT COUNT(*) As count FROM users WHERE status IN ($statusString)", 'count', []);
+    }
 }

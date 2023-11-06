@@ -32,7 +32,19 @@ class User extends Page
 
         if ($subPage === 'list') {
             $um = new UserManager();
-            $data['users'] = $um->getAll(true);
+            // TODO: Show all users for admins
+            $userCount         = $um->getUserCount(true);
+            $paginator         = $this->getPaginator($userCount, $this->settings['user_profiles_per_page']);
+            $data['users']     = $um->getAll(true, $paginator->getLength(), $paginator->getOffset());
+            $data['userCount'] = $userCount;
+        }
+
+        if ($subPage === 'signup') {
+            // ... den [Nutzungsbedingungen] zu ...
+            $termsLink = $this->settings['user_signup_form_confirm_terms'];
+            if (preg_match("/(.*)\[(.*)\](.*)/", $termsLink, $m)) {
+                $data['termsLink'] = $m[1] . '<a href="/terms">' . $m[2] . '</a>' . $m[3];
+            }
         }
 
         parent::output($renderer->render('user.' . $subPage . '.html.twig', $data));

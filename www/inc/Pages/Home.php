@@ -56,4 +56,20 @@ class Home extends Page
 
         parent::output($renderer->render('index.html.twig', $data));
     }
+
+    function termsPage()
+    {
+        parent::render();
+
+        $renderer = new Renderer();
+        parent::output($renderer->render('terms.html.twig', []));
+    }
+
+    function contactPage()
+    {
+        parent::render();
+
+        $renderer = new Renderer();
+        parent::output($renderer->render('contact.html.twig', []));
+    }
 }

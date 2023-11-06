@@ -26,3 +26,6 @@ Nachricht an Besitzer senden!
 - Nachrichten an andere Benutzer senden
 - Anzeigen, welche User online sind (memcache + Cron)
 
+self-signed Zertifikat erstellen für HTTPS, da WLAN nicht verschlüsselt
+
+Texte aus "settings" in Tabelle "localizations" verschieben!

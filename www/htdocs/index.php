@@ -52,6 +52,14 @@ switch ($path) {
     case '/home':
         $page = 'Home';
         break;
+    case '/terms':
+        $page = 'Home';
+        $function = 'termsPage';
+        break;
+    case '/contact':
+        $page = 'Home';
+        $function = 'contactPage';
+        break;
     default:
         $page = 'Home';
         $action = 'notfound';
