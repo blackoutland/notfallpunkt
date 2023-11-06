@@ -5,6 +5,9 @@ namespace BlackoutLand\NotfallPunkt\Model;
 class Utils
 {
     /** @var array */
+    private static $localizations;
+
+    /** @var array */
     private static $settings;
 
     /**
@@ -50,6 +53,15 @@ class Utils
         return self::$settings;
     }
 
+    public static function getLocalizations()
+    {
+        $lm = new LocalizationManager();
+        if (!self::$localizations) {
+            self::$localizations = $lm->getAll();
+        }
+        return self::$localizations;
+    }
+
     public static function getSetting($name)
     {
         $settings = self::getSettings();
@@ -59,16 +71,18 @@ class Utils
         return null;
     }
 
+
     /**
      * @return array
      */
     public static function getTemplateDefaultVars()
     {
         return [
-            'sys'      => self::getSysData(),
-            'config'   => $GLOBALS['config'],
-            'settings' => self::getSettings(),
-            'user'     => self::getLoggedInUser()
+            'sys'           => self::getSysData(),
+            'config'        => $GLOBALS['config'],
+            'settings'      => self::getSettings(),
+            'localizations' => self::getLocalizations(),
+            'user'          => self::getLoggedInUser()
         ];
     }
 

@@ -19,13 +19,7 @@ Bootstrap Themes: https://bootswatch.com/
 Test caching w/ query params!
 Don't cache login pages, user profiles etc.
 
-Benutzerliste / private Nachrichten unter Nutzern...
-
-Nachricht an Besitzer senden!
-
 - Nachrichten an andere Benutzer senden
 - Anzeigen, welche User online sind (memcache + Cron)
 
 self-signed Zertifikat erstellen für HTTPS, da WLAN nicht verschlüsselt
-
-Texte aus "settings" in Tabelle "localizations" verschieben!

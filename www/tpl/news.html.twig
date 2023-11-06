@@ -1,12 +1,12 @@
 {% extends 'main.html.twig' %}
 
-{% block title %}{{ settings.news_title }} @ {{ sys.system.name }}{% endblock %}
+{% block title %}{{ localizations.news_title }} @ {{ sys.system.name }}{% endblock %}
 
 {% block body %}
     <div class="row">
         <div class="col-lg-12">
             <div class="page-header">
-                <h1>{{ settings.news_title }} ({{ paginator.resultCount }})</h1>
+                <h1>{{ localizations.news_title }} ({{ paginator.resultCount }})</h1>
             </div>
         </div>
     </div>

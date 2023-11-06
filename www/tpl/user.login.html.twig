@@ -1,39 +1,39 @@
 {% extends 'main.html.twig' %}
 
-{% block title %}{{ settings.user_login_title }} @ {{ sys.system.name }}{% endblock %}
+{% block title %}{{ localizations.user_login_title }} @ {{ sys.system.name }}{% endblock %}
 
 {% block body %}
     <main class="form-signin">
         <form method="post" action="/login">
             <i class="fa fa-user fa-5x"></i>
-            <h1 class="h3 mb-3 fw-normal">{{ settings.user_login_title }}</h1>
+            <h1 class="h3 mb-3 fw-normal">{{ localizations.user_login_title }}</h1>
 
             {% if error %}
                 <div class="alert alert-danger">
                     <i class="fa fa-warning"></i>
-                    {{ settings.user_login_error }}
+                    {{ localizations.user_login_error }}
                 </div>
             {% endif %}
 
             <div class="form-floating">
                 <input type="text" value="{{ login }}" class="form-control" id="floatingInput" name="user"
-                       placeholder="{{ settings.user_login_form_title_username }}">
-                <label for="floatingInput">{{ settings.user_login_form_title_username }}</label>
+                       placeholder="{{ localizations.user_login_form_title_username }}">
+                <label for="floatingInput">{{ localizations.user_login_form_title_username }}</label>
             </div>
             <div class="form-floating">
                 <input {% if error %}autofocus {% endif %}type="password" class="form-control" name="pass"
-                       id="floatingPassword" placeholder="{{ settings.user_login_form_title_password }}">
-                <label for="floatingPassword">{{ settings.user_login_form_title_password }}</label>
+                       id="floatingPassword" placeholder="{{ localizations.user_login_form_title_password }}">
+                <label for="floatingPassword">{{ localizations.user_login_form_title_password }}</label>
             </div>
             {#
             <div class="checkbox mb-3">
                 <label>
-                    <input type="checkbox" name="persistent" value="1"> {{ settings.user_login_form_title_remember_login }}
+                    <input type="checkbox" name="persistent" value="1"> {{ localizations.user_login_form_title_remember_login }}
                 </label>
             </div>
             #}
             <button class="w-100 btn btn-lg btn-primary"
-                    type="submit">{{ settings.user_login_form_title_login_button }}</button>
+                    type="submit">{{ localizations.user_login_form_title_login_button }}</button>
         </form>
     </main>
 {% endblock %}

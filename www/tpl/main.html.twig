@@ -31,7 +31,7 @@
     <nav class="navbar navbar-expand-sm navbar-dark bg-dark" aria-label="Third navbar example">
         <div class="container-fluid">
             <a class="navbar-brand" href="/">{{ sys.system.nameShort }}</a>
-            <span id="testModeText" class="badge rounded-pill bg-warning">{{ settings.nav_testmode_text }}</span>
+            <span id="testModeText" class="badge rounded-pill bg-warning">{{ localizations.nav_testmode_text }}</span>
             <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarsExample03" aria-controls="navbarsExample03" aria-expanded="false"
                     aria-label="Toggle navigation">
@@ -42,32 +42,32 @@
                 <ul class="navbar-nav me-auto mb-2 mb-sm-0">
                     <li class="nav-item">
                         <a class="nav-link{% if pageIndicator == 'home' %} active{% endif %}"{% if pageIndicator == 'home' %} aria-current="page"{% endif %}
-                           href="/">{{ settings.nav_home }}<span class="badge rounded-pill bg-primary nfp_update_count" id="nfpUpdateCount_home">0</span></a>
+                           href="/">{{ localizations.nav_home }}<span class="badge rounded-pill bg-primary nfp_update_count" id="nfpUpdateCount_home">0</span></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link{% if pageIndicator == 'news' %} active{% endif %}"{% if pageIndicator == 'news' %} aria-current="page"{% endif %}
-                           href="/news">{{ settings.nav_news }}<span class="badge rounded-pill bg-primary nfp_update_count" id="nfpUpdateCount_news">0</span></a>
+                           href="/news">{{ localizations.nav_news }}<span class="badge rounded-pill bg-primary nfp_update_count" id="nfpUpdateCount_news">0</span></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link{% if pageIndicator == 'board' %} active{% endif %}"{% if pageIndicator == 'board' %} aria-current="page"{% endif %}
-                           href="/board">{{ settings.nav_board }}<span class="badge rounded-pill bg-primary nfp_update_count" id="nfpUpdateCount_board">0</span></a>
+                           href="/board">{{ localizations.nav_board }}<span class="badge rounded-pill bg-primary nfp_update_count" id="nfpUpdateCount_board">0</span></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link{% if pageIndicator == 'files' %} active{% endif %}"{% if pageIndicator == 'files' %} aria-current="page"{% endif %}
-                           href="/files">{{ settings.nav_files }}<span class="badge rounded-pill bg-primary nfp_update_count" id="nfpUpdateCount_files">0</span></a>
+                           href="/files">{{ localizations.nav_files }}<span class="badge rounded-pill bg-primary nfp_update_count" id="nfpUpdateCount_files">0</span></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link{% if pageIndicator == 'knowledge' %} active{% endif %}"{% if pageIndicator == 'knowledge' %} aria-current="page"{% endif %}
-                           href="/knowledge">{{ settings.nav_knowledge }}<span class="badge rounded-pill bg-primary nfp_update_count" id="nfpUpdateCount_knowledge">0</span></a>
+                           href="/knowledge">{{ localizations.nav_knowledge }}<span class="badge rounded-pill bg-primary nfp_update_count" id="nfpUpdateCount_knowledge">0</span></a>
                     </li>
                     <li class="nav-item dropdown text-light">
                         <a class="nav-link dropdown-toggle{% if pageIndicator == 'user' %} active{% endif %}{% if user %} text-primary{% endif %}" href="#"
-                           id="dropdown03" data-bs-toggle="dropdown" aria-expanded="false">{% if user %}{{ user.login }}{% else %}{{ settings.nav_user }}{% endif %}<span class="badge rounded-pill bg-primary nfp_update_count" id="nfpUpdateCount_user">0</span></a>
+                           id="dropdown03" data-bs-toggle="dropdown" aria-expanded="false">{% if user %}{{ user.login }}{% else %}{{ localizations.nav_user }}{% endif %}<span class="badge rounded-pill bg-primary nfp_update_count" id="nfpUpdateCount_user">0</span></a>
                         <ul class="dropdown-menu" aria-labelledby="dropdown03">
-                            {% if user %}<li><a class="dropdown-item" href="/users">{{ settings.nav_user_list }}</a></li>{% endif %}
-                            {% if not user %}<li><a class="dropdown-item" href="/login">{{ settings.nav_user_login }}</a></li>{% endif %}
-                            {% if not user %}<li><a class="dropdown-item" href="/signup">{{ settings.nav_user_signup }}</a></li>{% endif %}
-                            {% if user %}<li><a class="dropdown-item" href="/logout">{{ settings.nav_user_logout }}</a></li>{% endif %}
+                            {% if user %}<li><a class="dropdown-item" href="/users">{{ localizations.nav_user_list }}</a></li>{% endif %}
+                            {% if not user %}<li><a class="dropdown-item" href="/login">{{ localizations.nav_user_login }}</a></li>{% endif %}
+                            {% if not user %}<li><a class="dropdown-item" href="/signup">{{ localizations.nav_user_signup }}</a></li>{% endif %}
+                            {% if user %}<li><a class="dropdown-item" href="/logout">{{ localizations.nav_user_logout }}</a></li>{% endif %}
                         </ul>
                     </li>
                     {#
@@ -101,11 +101,9 @@
         <div>
             <div>
                 <div class="col-sm-12 mx-auto">
-                    Standort: {{ settings.location }}
-                    {% if settings.owner %}
-                        -
-                        <strong>Verantwortlich: </strong>
-                        <a href="/contact">{{ settings.owner }}</a>
+                    {{ localizations.location }}
+                    {% if localizations.owner %}
+                        <a href="/contact">{{ localizations.owner }}</a>
                     {% endif %}
                     🕑 {{ 'now'|date("d.m.Y H:i:s") }} %%CACHE_INFO%%
                 </div>
@@ -117,7 +115,7 @@
 <script type="text/javascript">
     const tsGenerated = {{ 'now'|date("U") }},
         statusReloadTime = {{ settings.ext_status_reload_time }},
-        connectErrorMessage = '{{ settings.msg_connect_error|addslashes|raw }}';
+        connectErrorMessage = '{{ localizations.msg_connect_error|addslashes|raw }}';
 </script>
 
 {% if settings.ext_minify_js %}{# @ at the beginning indicates "concatenate only, do not pack" #}

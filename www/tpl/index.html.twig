@@ -6,13 +6,13 @@
 {% block body %}
     {% if settings.home_general_show %}
         <div class="alert alert-warning" role="alert">
-            {{ settings.home_general_title|nl2br }}
+            {{ localizations.home_general_title|nl2br }}
         </div>
     {% endif %}
 
     {% if emergency_infos and settings.home_emergency_infos_show %}
         <div class="card text-white bg-danger mb-4">
-            <div class="card-header">{{ settings.home_emergency_infos_title }}</div>
+            <div class="card-header">{{ localizations.home_emergency_infos_title }}</div>
             <div class="card-body">
                 {% set i = 0 %}
                 {% for info in emergency_infos %}
@@ -44,7 +44,7 @@
                     <h2 class="accordion-header" id="headingOneA">
                         <button class="accordion-button" type="button" data-bs-toggle="collapse"
                                 data-bs-target="#collapseOneA" aria-expanded="true" aria-controls="collapseOne">
-                            {{ settings.home_newsbox_title }}
+                            {{ localizations.home_newsbox_title }}
                         </button>
                     </h2>
                     <div id="collapseOneA" class="accordion-collapse collapse show" aria-labelledby="headingOne"
@@ -62,7 +62,7 @@
 
                             {% if more_news_available %}
                                 <a class="btn btn-primary btn-sm" href="/news" role="button">
-                                    {{ settings.text_show_all }}
+                                    {{ localizations.text_show_all }}
                                 </a>
                             {% endif %}
                         </div>
@@ -78,7 +78,7 @@
                 <h2 class="accordion-header" id="headingOneB">
                     <button class="accordion-button" type="button" data-bs-toggle="collapse"
                             data-bs-target="#collapseOneB" aria-expanded="true" aria-controls="collapseOneB">
-                        {{ settings.home_infos_title }}
+                        {{ localizations.home_infos_title }}
                     </button>
                 </h2>
                 <div id="collapseOneB" class="accordion-collapse collapse show" aria-labelledby="headingOneB"

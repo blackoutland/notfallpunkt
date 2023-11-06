@@ -1,12 +1,12 @@
 {% extends 'main.html.twig' %}
 
-{% block title %}{{ settings.contact_title }} @ {{ sys.system.name }}{% endblock %}
+{% block title %}{{ localizations.contact_title }} @ {{ sys.system.name }}{% endblock %}
 
 {% block body %}
     <div class="row">
         <div class="col-lg-12">
             <div class="page-header">
-                <h1>{{ settings.contact_title }}</h1>
+                <h1>{{ localizations.contact_title }}</h1>
             </div>
         </div>
     </div>
@@ -15,7 +15,7 @@
         <div class="col-md-12">
             <div class="row g-0 border rounded overflow-hidden flex-md-row mb-3 shadow-sm h-md-250 position-relative">
                 <div class="col p-4 d-flex flex-column position-static">
-                    {{ settings.contact_info|nl2br }}
+                    {{ localizations.contact_info|nl2br }}
                 </div>
             </div>
         </div>

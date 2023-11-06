@@ -1,7 +1,7 @@
 {% macro message(ts, title, content) %}
     {% if ts %}
         <small class="text-light nfp_ts" data-ts="{{ ts }}"
-               title="{{ ts|date(settings.date_format_dmyhis) }}">{{ ts|date(settings.date_format_dmyhis) }}</small>
+               title="{{ ts|date(localizations.date_format_dmyhis) }}">{{ ts|date(localizations.date_format_dmyhis) }}</small>
     {% endif %}
     {% if title %}
         <br>
