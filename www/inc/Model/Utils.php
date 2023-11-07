@@ -11,34 +11,84 @@ class Utils
     private static $settings;
 
     /**
+     * @var MemcacheConnection
+     */
+    private static $memcache;
+
+    /** @var UserManager */
+    private static $userManager;
+
+    /** @var array */
+    private static $sysData;
+
+    /**
      * @return array
      */
     public static function getSysData()
     {
-        return [
-            'phpVersion'     => PHP_VERSION,
-            'serverSoftware' => $_SERVER['SERVER_SOFTWARE'],
-            'remoteIp'       => $_SERVER['REMOTE_ADDR'],
-            'debug'          => DEBUG,
-            'system'         => json_decode(file_get_contents('/system.json'), true),
-            'db'             => self::getDb()->getVersionNumber()
-        ];
+        if (!self::$sysData) {
+            $memcacheVersion = null;
+            try {
+                $mc              = new MemcacheConnection();
+                $memcacheVersion = $mc->getVersion();
+            } catch (\Exception $e) {
+                // Ignore silently
+            }
+
+            self::$sysData = [
+                'phpVersion'      => PHP_VERSION,
+                'serverSoftware'  => $_SERVER['SERVER_SOFTWARE'],
+                'memcacheVersion' => $memcacheVersion,
+                'remoteIp'        => $_SERVER['REMOTE_ADDR'],
+                'debug'           => DEBUG,
+                'system'          => json_decode(file_get_contents('/system.json'), true),
+                'dbVersion'       => self::getDb()->getVersionNumber()
+            ];
+        }
+
+        return self::$sysData;
+    }
+
+    public static function memcacheSet($key, $value, $expiration = 0)
+    {
+        if (!self::$memcache) {
+            self::$memcache = new MemcacheConnection();
+        }
+        self::$memcache->set($key, $value, $expiration);
+    }
+
+    public static function memcacheGet($key)
+    {
+        if (!self::$memcache) {
+            self::$memcache = new MemcacheConnection();
+        }
+        return self::$memcache->get($key);
     }
 
     public static function isLoggedIn()
     {
-        if (empty($GLOBALS['UserManager'])) {
-            return false;
+        if (!self::$userManager) {
+            self::$userManager = new UserManager();
         }
-        return $GLOBALS['UserManager']->isLoggedIn();
+
+        return self::$userManager->isLoggedIn();
     }
 
     public static function getLoggedInUser()
     {
+
         if (!self::isLoggedIn()) {
             return null;
         }
         return $GLOBALS['UserManager']->getLoggedInUserData();
+    }
+
+    public static function isOnline($login)
+    {
+        if (!self::$userManager) {
+            self::$userManager = new UserManager();
+        }
+        return self::$userManager->isOnline($login);
     }
 
     /**

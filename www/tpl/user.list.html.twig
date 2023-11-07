@@ -18,12 +18,12 @@
                     <div class="card border-success mb-3">
                         <div class="card-header">{{ localizations.user_title_admin }}</div>
                         <div class="card-body">
-                            <h4 class="card-title">{{ usr.login }}</h4>
+                            <h4 class="card-title">{{ usr.login }}{% if userOnlineStatuses[usr.login] %} <span class="text-success" title="{{ localizations.is_online }}"><i class="fa fa-check-circle"></i></span>{% endif %}</h4>
                             <p class="card-text">{{ usr.info }}<br>{{ localizations.user_title_last_login }}:
                                 <span class="nfp_ts" data-ts="{{ usr.ts_last_login }}"
                                       title="{{ usr.ts_last_login|date("d.m.Y H:i:s") }}">{{ usr.ts_last_login|date("d.m.Y H:i:s") }}</span>
                             </p>
-                            <a class="btn btn-primary" href="/message/send?to={{ usr.login }}"><i
+                            <a class="btn btn-primary" href="/messages/send?to={{ usr.login }}"><i
                                         class="fa fa-envelope"></i> {{ localizations.user_profile_button_send_message }}</a>
                         </div>
                     </div>
@@ -34,7 +34,7 @@
                 <div class="col-md-12">
                     <div class="row g-0 border rounded overflow-hidden flex-md-row mb-3 shadow-sm h-md-250 position-relative">
                         <div class="col p-4 d-flex flex-column position-static">
-                            <strong>{{ usr.login }} </strong>
+                            <strong>{{ usr.login }}{% if userOnlineStatuses[usr.login] %} <span class="text-success" title="{{ localizations.is_online }}"><i class="fa fa-check-circle"></i></span>{% endif %}</strong>
                             <p class="card-text mb-1">{{ usr.info }}</p>
                             <div class="mb-1 text-muted">{{ localizations.user_title_last_login }}:
                                 {% if not usr.ts_last_login %}
@@ -44,11 +44,11 @@
                                           title="{{ usr.ts_last_login|date("d.m.Y H:i:s") }}">{{ usr.ts_last_login|date("d.m.Y H:i:s") }}</span>
                                 {% endif %}
                                 <div class="mt-3">
-                                    <a class="btn btn-primary" href="/message/send?to={{ usr.login }}"><i
+                                    <a class="btn btn-primary" href="/messages/send?to={{ usr.login }}"><i
                                                 class="fa fa-envelope"></i> {{ localizations.user_profile_button_send_message }}
                                     </a>
                                     &nbsp;
-                                    <a class="btn btn-primary" href="/message/admin?rel={{ usr.login }}&type=complaint"><i
+                                    <a class="btn btn-primary" href="/messages/admin?rel={{ usr.login }}&type=complaint"><i
                                                 class="fa fa-envelope"></i> {{ localizations.user_profile_button_complain }}
                                     </a>
                                 </div>

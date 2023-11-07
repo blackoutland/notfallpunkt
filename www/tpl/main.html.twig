@@ -64,6 +64,7 @@
                         <a class="nav-link dropdown-toggle{% if pageIndicator == 'user' %} active{% endif %}{% if user %} text-primary{% endif %}" href="#"
                            id="dropdown03" data-bs-toggle="dropdown" aria-expanded="false">{% if user %}{{ user.login }}{% else %}{{ localizations.nav_user }}{% endif %}<span class="badge rounded-pill bg-primary nfp_update_count" id="nfpUpdateCount_user">0</span></a>
                         <ul class="dropdown-menu" aria-labelledby="dropdown03">
+                            {% if user %}<li><a class="dropdown-item" href="/messages">{{ localizations.nav_user_messages }}</a></li>{% endif %}
                             {% if user %}<li><a class="dropdown-item" href="/users">{{ localizations.nav_user_list }}</a></li>{% endif %}
                             {% if not user %}<li><a class="dropdown-item" href="/login">{{ localizations.nav_user_login }}</a></li>{% endif %}
                             {% if not user %}<li><a class="dropdown-item" href="/signup">{{ localizations.nav_user_signup }}</a></li>{% endif %}

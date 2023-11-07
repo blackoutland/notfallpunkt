@@ -128,6 +128,11 @@ class UserManager
         return [false, 'wrongpass', null];
     }
 
+    public function isOnline($login)
+    {
+        return Utils::memcacheGet('usr.' . $login . '.online');
+    }
+
     public function logout()
     {
         Session::destroy();

@@ -46,10 +46,20 @@ services:
     networks:
       - blackoutland-net
     restart: always
-    ports:
-      - 11211:11211
     env_file:
       - .env
+
+  blackoutland-notfallpunkt-memcachedadmin:
+    container_name: blackoutland-notfallpunkt-memcachedadmin
+    image: 'legacyphp/memcachedadmin:latest'
+    tty: true
+    ports:
+      - '10000:80'
+    environment:
+      - 'TZ=UTC'
+      - 'SERVER=blackoutland-notfallpunkt-memcached:11211'
+    networks:
+      - blackoutland-net
 
 networks:
   blackoutland-net:

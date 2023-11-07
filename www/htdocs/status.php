@@ -10,6 +10,15 @@ header("Content-Type: application/json");
 
 $loginUserData = $GLOBALS['UserManager']->getLoggedInUserData();
 
+// Log to Memcache
+if ($loginUserData) {
+    try {
+        Utils::memcacheSet("usr.".$loginUserData['login'].'.online', 1, 60); // TODO: Allow configuration of expiration
+    } catch (Exception $e) {
+        // Ignore silently
+    }
+}
+
 echo json_encode(
     [
         'success'      => true,

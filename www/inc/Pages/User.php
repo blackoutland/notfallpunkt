@@ -2,6 +2,7 @@
 
 namespace BlackoutLand\NotfallPunkt\Pages;
 
+use BlackoutLand\NotfallPunkt\Model\MemcacheConnection;
 use BlackoutLand\NotfallPunkt\Model\Page;
 use BlackoutLand\NotfallPunkt\Model\Renderer;
 use BlackoutLand\NotfallPunkt\Model\UserManager;
@@ -37,6 +38,14 @@ class User extends Page
             $paginator         = $this->getPaginator($userCount, $this->settings['user_profiles_per_page']);
             $data['users']     = $um->getAll(true, $paginator->getLength(), $paginator->getOffset());
             $data['userCount'] = $userCount;
+
+            // Get online status
+            // TODO: Only do if memcache enabled
+            $userOnlineStatus = [];
+            foreach ($data['users'] as $usr) {
+                $userOnlineStatus[$usr['login']] = (bool)Utils::memcacheGet('usr.' . $usr['login'] . '.online');
+            }
+            $data['userOnlineStatuses'] = $userOnlineStatus;
         }
 
         if ($subPage === 'signup') {
