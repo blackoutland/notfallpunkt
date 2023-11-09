@@ -20,6 +20,10 @@ class Utils
 
     /** @var array */
     private static $sysData;
+    /**
+     * @var array|false
+     */
+    private static $allMemcacheKeys;
 
     /**
      * @return array
@@ -29,8 +33,10 @@ class Utils
         if (!self::$sysData) {
             $memcacheVersion = null;
             try {
-                $mc              = new MemcacheConnection();
-                $memcacheVersion = $mc->getVersion();
+                if (!self::$memcache) {
+                    self::$memcache = new MemcacheConnection();
+                }
+                $memcacheVersion = self::$memcache->getVersion();
             } catch (\Exception $e) {
                 // Ignore silently
             }
@@ -49,6 +55,15 @@ class Utils
         return self::$sysData;
     }
 
+    // TODO: move to new factory
+    public static function getMemcacheConnection()
+    {
+        if (!self::$memcache) {
+            self::$memcache = new MemcacheConnection();
+        }
+        return self::$memcache;
+    }
+
     public static function memcacheSet($key, $value, $expiration = 0)
     {
         if (!self::$memcache) {
@@ -65,13 +80,31 @@ class Utils
         return self::$memcache->get($key);
     }
 
+    public static function getAllMemcacheKeys()
+    {
+        if (!self::$memcache) {
+            self::$memcache = new MemcacheConnection();
+        }
+        if (!self::$allMemcacheKeys) {
+            self::$allMemcacheKeys = self::$memcache->getAll();
+        }
+        return self::$allMemcacheKeys;
+    }
+
+    public static function getLoggedInUsers()
+    {
+        $onlineUsersNames = [];
+        foreach (self::getAllMemcacheKeys() as $key) {
+            if (preg_match("/^usr\.(.*)\.online$/", $key, $m)) {
+                $onlineUsersNames[] = $m[1];
+            }
+        }
+        return $onlineUsersNames;
+    }
+
     public static function isLoggedIn()
     {
-        if (!self::$userManager) {
-            self::$userManager = new UserManager();
-        }
-
-        return self::$userManager->isLoggedIn();
+        return $GLOBALS['UserManager']->isLoggedIn();
     }
 
     public static function getLoggedInUser()

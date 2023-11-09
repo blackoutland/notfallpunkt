@@ -42,33 +42,63 @@
                 <ul class="navbar-nav me-auto mb-2 mb-sm-0">
                     <li class="nav-item">
                         <a class="nav-link{% if pageIndicator == 'home' %} active{% endif %}"{% if pageIndicator == 'home' %} aria-current="page"{% endif %}
-                           href="/">{{ localizations.nav_home }}<span class="badge rounded-pill bg-primary nfp_update_count" id="nfpUpdateCount_home">0</span></a>
+                           href="/">{{ localizations.nav_home }}<span
+                                    class="badge rounded-pill bg-primary nfp_update_count"
+                                    id="nfpUpdateCount_home">0</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link{% if pageIndicator == 'chat' %} active{% endif %}"{% if pageIndicator == 'chat' %} aria-current="page"{% endif %}
+                           href="/chat">{{ localizations.nav_chat }}<span
+                                    class="badge rounded-pill bg-primary nfp_update_count"
+                                    id="nfpUpdateCount_chat">0</span></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link{% if pageIndicator == 'news' %} active{% endif %}"{% if pageIndicator == 'news' %} aria-current="page"{% endif %}
-                           href="/news">{{ localizations.nav_news }}<span class="badge rounded-pill bg-primary nfp_update_count" id="nfpUpdateCount_news">0</span></a>
+                           href="/news">{{ localizations.nav_news }}<span
+                                    class="badge rounded-pill bg-primary nfp_update_count"
+                                    id="nfpUpdateCount_news">0</span></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link{% if pageIndicator == 'board' %} active{% endif %}"{% if pageIndicator == 'board' %} aria-current="page"{% endif %}
-                           href="/board">{{ localizations.nav_board }}<span class="badge rounded-pill bg-primary nfp_update_count" id="nfpUpdateCount_board">0</span></a>
+                           href="/board">{{ localizations.nav_board }}<span
+                                    class="badge rounded-pill bg-primary nfp_update_count"
+                                    id="nfpUpdateCount_board">0</span></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link{% if pageIndicator == 'files' %} active{% endif %}"{% if pageIndicator == 'files' %} aria-current="page"{% endif %}
-                           href="/files">{{ localizations.nav_files }}<span class="badge rounded-pill bg-primary nfp_update_count" id="nfpUpdateCount_files">0</span></a>
+                           href="/files">{{ localizations.nav_files }}<span
+                                    class="badge rounded-pill bg-primary nfp_update_count"
+                                    id="nfpUpdateCount_files">0</span></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link{% if pageIndicator == 'knowledge' %} active{% endif %}"{% if pageIndicator == 'knowledge' %} aria-current="page"{% endif %}
-                           href="/knowledge">{{ localizations.nav_knowledge }}<span class="badge rounded-pill bg-primary nfp_update_count" id="nfpUpdateCount_knowledge">0</span></a>
+                           href="/knowledge">{{ localizations.nav_knowledge }}<span
+                                    class="badge rounded-pill bg-primary nfp_update_count"
+                                    id="nfpUpdateCount_knowledge">0</span></a>
                     </li>
                     <li class="nav-item dropdown text-light">
-                        <a class="nav-link dropdown-toggle{% if pageIndicator == 'user' %} active{% endif %}{% if user %} text-primary{% endif %}" href="#"
-                           id="dropdown03" data-bs-toggle="dropdown" aria-expanded="false">{% if user %}{{ user.login }}{% else %}{{ localizations.nav_user }}{% endif %}<span class="badge rounded-pill bg-primary nfp_update_count" id="nfpUpdateCount_user">0</span></a>
+                        <a class="nav-link dropdown-toggle{% if pageIndicator == 'user' %} active{% endif %}{% if user %} text-primary{% endif %}"
+                           href="#"
+                           id="dropdown03" data-bs-toggle="dropdown"
+                           aria-expanded="false">{% if user %}{{ user.login }}{% else %}{{ localizations.nav_user }}{% endif %}
+                            <span class="badge rounded-pill bg-primary nfp_update_count"
+                                  id="nfpUpdateCount_user">0</span></a>
                         <ul class="dropdown-menu" aria-labelledby="dropdown03">
-                            {% if user %}<li><a class="dropdown-item" href="/messages">{{ localizations.nav_user_messages }}</a></li>{% endif %}
-                            {% if user %}<li><a class="dropdown-item" href="/users">{{ localizations.nav_user_list }}</a></li>{% endif %}
-                            {% if not user %}<li><a class="dropdown-item" href="/login">{{ localizations.nav_user_login }}</a></li>{% endif %}
-                            {% if not user %}<li><a class="dropdown-item" href="/signup">{{ localizations.nav_user_signup }}</a></li>{% endif %}
-                            {% if user %}<li><a class="dropdown-item" href="/logout">{{ localizations.nav_user_logout }}</a></li>{% endif %}
+                            {% if user %}
+                                <li><a class="dropdown-item" href="/messages">{{ localizations.nav_user_messages }}</a>
+                                </li>{% endif %}
+                            {% if user %}
+                                <li><a class="dropdown-item" href="/users">{{ localizations.nav_user_list }}</a>
+                                </li>{% endif %}
+                            {% if not user %}
+                                <li><a class="dropdown-item" href="/login">{{ localizations.nav_user_login }}</a>
+                                </li>{% endif %}
+                            {% if not user %}
+                                <li><a class="dropdown-item" href="/signup">{{ localizations.nav_user_signup }}</a>
+                                </li>{% endif %}
+                            {% if user %}
+                                <li><a class="dropdown-item" href="/logout">{{ localizations.nav_user_logout }}</a>
+                                </li>{% endif %}
                         </ul>
                     </li>
                     {#
@@ -116,7 +146,9 @@
 <script type="text/javascript">
     const tsGenerated = {{ 'now'|date("U") }},
         statusReloadTime = {{ settings.ext_status_reload_time }},
-        connectErrorMessage = '{{ localizations.msg_connect_error|addslashes|raw }}';
+        connectErrorMessage = '{{ localizations.msg_connect_error|addslashes|raw }}',
+        currentPage = '{{ pageIndicator }}',
+        userIsOnlineText = '{{ localizations.is_online|addslashes }}';
 </script>
 
 {% if settings.ext_minify_js %}{# @ at the beginning indicates "concatenate only, do not pack" #}

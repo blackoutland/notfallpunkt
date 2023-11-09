@@ -121,6 +121,7 @@ class UserManager
             */
 
             Session::regenerateId(true);
+            $this->setLoginUserData($userData);
             return [true, "ok", $userData];
         }
 

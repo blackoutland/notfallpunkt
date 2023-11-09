@@ -1,23 +1,35 @@
 <?php
 
+use BlackoutLand\NotfallPunkt\Model\ChatManager;
 use BlackoutLand\NotfallPunkt\Model\Utils;
 
 require_once __DIR__ . '/../inc/bootstrap.php';
 
 $settings = Utils::getSettings();
 
-header("Content-Type: application/json");
 
 $loginUserData = $GLOBALS['UserManager']->getLoggedInUserData();
 
 // Log to Memcache
 if ($loginUserData) {
     try {
-        Utils::memcacheSet("usr.".$loginUserData['login'].'.online', 1, 60); // TODO: Allow configuration of expiration
+        Utils::memcacheSet("usr." . $loginUserData['login'] . '.online', 1, 60); // TODO: Allow configuration of expiration
     } catch (Exception $e) {
         // Ignore silently
     }
 }
+
+$userCountOnline = count(Utils::getLoggedInUsers());
+$onlineUsers = Utils::getLoggedInUsers();
+
+$chatMessages = [];
+if ($_GET['chat']) {
+    $lastChatMessageId = empty($_GET['cmsgid']) ? 0 : (int)$_GET['cmsgid'];
+    $cm                = new ChatManager();
+    $chatMessages = $cm->getMessagesSince($lastChatMessageId);
+
+
+    header("Content-Type: application/json");}
 
 echo json_encode(
     [
@@ -31,12 +43,15 @@ echo json_encode(
             // TODO: Whenever someone updates news etc. send message
         ],
         "updateCounts" => [
-            "home"      => 0,
-            "news"      => 0,
-            "board"     => 0,
-            "files"     => 0,
-            "knowledge" => 0,
-            "users"     => 0
-        ]
+            "home"       => 0,
+            "news"       => 0,
+            "board"      => 0,
+            "files"      => 0,
+            "knowledge"  => 0,
+            "users"      => 0,
+            "userOnline" => $userCountOnline
+        ],
+        "chatMessages" => $chatMessages,
+        "onlineUsers" => $onlineUsers
     ]
 );

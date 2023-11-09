@@ -23,3 +23,14 @@ Don't cache login pages, user profiles etc.
 - Anzeigen, welche User online sind (memcache + Cron)
 
 self-signed Zertifikat erstellen für HTTPS, da WLAN nicht verschlüsselt
+
+Do not expose ports not to be exposed (memcached etc.)
+Use Varnish as cache? https://hub.docker.com/_/varnish
+
+Use Memcache flag!
+
+Wenn memcache aktiv, dann alle Lokalisierungen und EInstellungen aus DB in memcache schreiben und nur von dort lesen!
+Und alle Userdaten!
+Bei Verwendung von Varnish nur Daten von nicht eingeloggten Usern cachen?
+
+Logout -> delete memcache key for being online

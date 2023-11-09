@@ -3,6 +3,7 @@
 use BlackoutLand\NotfallPunkt\Model\GeneralInfos;
 use BlackoutLand\NotfallPunkt\Model\OwnerNews;
 use BlackoutLand\NotfallPunkt\Model\Renderer;
+use BlackoutLand\NotfallPunkt\Model\Utils;
 use BlackoutLand\NotfallPunkt\Pages\News;
 
 require_once __DIR__ . '/../inc/bootstrap.php';
@@ -51,6 +52,9 @@ switch ($path) {
     case '/':
     case '/home':
         $page = 'Home';
+        break;
+    case '/chat':
+        $page = 'Chat';
         break;
     case '/terms':
         $page = 'Home';

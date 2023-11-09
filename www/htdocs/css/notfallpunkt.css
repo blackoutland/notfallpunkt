@@ -50,25 +50,27 @@ nav span.nfp_update_count {
 nav span.nfp_update_count.visible {
     display: inline;
 }
+
 .nfp_accordionGreen .accordion-button:not(.collapsed) {
-    background-color:var(--bs-green);
+    background-color: var(--bs-green);
 }
 
 ul.nfp_list_noleftpad {
-    padding-left:1rem;
+    padding-left: 1rem;
 }
+
 ul.nfp_list_nomessagepadding p {
-    margin-bottom:0.2rem;
+    margin-bottom: 0.2rem;
 }
 
 strong.nfp_title {
-    font-size:1.1rem;
+    font-size: 1.1rem;
 }
 
 
 /*** LOGIN FORM ***/
 .form-signin {
-    text-align:center;
+    text-align: center;
     width: 100%;
     max-width: 330px;
     padding: 15px;
@@ -93,4 +95,46 @@ strong.nfp_title {
     margin-bottom: 10px;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
+}
+
+/*** CHAT ***/
+body.page-chat #chat {
+    padding: 0.2rem;
+    max-height: 400px;
+}
+
+body.page-chat #chat #chatBox {
+    border: 1px solid var(--bs-body-color);
+    min-height: 350px;
+    overflow-y: auto;
+    max-height: 70%;
+}
+
+body.page-chat #chatInput {
+    background-color: var(--bs-light) !important;
+    color:var(--bs-secondary-text-emphasis);
+    padding:0.3rem;
+}
+
+
+body.page-chat #chat #chatBox ul#chatMsgList {
+    list-style-type: none;
+    padding: 1rem;
+    font-size: 0.85rem;
+}
+
+body.page-chat #chat #chatBox ul#chatMsgList .cm .small {
+    display: block;
+    float: left;
+    margin-right: 10px;
+}
+
+body.page-chat #chat #chatBox ul#chatMsgList .cm em {
+    display: block;
+    float: left;
+    margin-right: 10px;
+}
+
+body.page-chat #chat #chatBox ul#chatMsgList .cm {
+    margin-bottom: 1rem;
 }

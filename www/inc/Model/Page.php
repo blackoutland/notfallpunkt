@@ -26,11 +26,17 @@ class Page
      */
     protected $settings = [];
 
+    /**
+     * @var array
+     */
+    protected $localizations = [];
+
     protected $cacheRelatedQueryParams = [];
 
     public function __construct()
     {
         $this->settings = Utils::getSettings();
+        $this->localizations = Utils::getLocalizations();
     }
 
     private function getCacheFileName($subPage = null)

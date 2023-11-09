@@ -50,7 +50,7 @@ class User extends Page
 
         if ($subPage === 'signup') {
             // ... den [Nutzungsbedingungen] zu ...
-            $termsLink = $this->settings['user_signup_form_confirm_terms'];
+            $termsLink = $this->localizations['user_signup_form_confirm_terms'];
             if (preg_match("/(.*)\[(.*)\](.*)/", $termsLink, $m)) {
                 $data['termsLink'] = $m[1] . '<a href="/terms">' . $m[2] . '</a>' . $m[3];
             }
