@@ -59,6 +59,10 @@ class Renderer
             return ob_get_clean();
         }));
 
+        $this->twig->addFilter(new TwigFilter('preg_replace', function ($subject, $pattern, $replacement) {
+            return preg_replace($pattern, $replacement, $subject);
+        }));
+
         $this->twig->addFilter(new TwigFilter('autolinks', function ($text) {
             return $this->autoReplaceLinks($text);
         }));

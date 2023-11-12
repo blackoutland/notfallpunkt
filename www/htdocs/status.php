@@ -20,16 +20,16 @@ if ($loginUserData) {
 }
 
 $userCountOnline = count(Utils::getLoggedInUsers());
-$onlineUsers = Utils::getLoggedInUsers();
+$onlineUsers     = Utils::getLoggedInUsers();
 
 $chatMessages = [];
 if ($_GET['chat']) {
     $lastChatMessageId = empty($_GET['cmsgid']) ? 0 : (int)$_GET['cmsgid'];
     $cm                = new ChatManager();
-    $chatMessages = $cm->getMessagesSince($lastChatMessageId);
+    $chatMessages      = $cm->getMessagesSince($lastChatMessageId);
+}
 
-
-    header("Content-Type: application/json");}
+header("Content-Type: application/json");
 
 echo json_encode(
     [
@@ -52,6 +52,6 @@ echo json_encode(
             "userOnline" => $userCountOnline
         ],
         "chatMessages" => $chatMessages,
-        "onlineUsers" => $onlineUsers
+        "onlineUsers"  => $onlineUsers
     ]
 );

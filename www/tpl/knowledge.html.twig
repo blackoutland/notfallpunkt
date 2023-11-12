@@ -1,4 +1,5 @@
 {% extends 'main.html.twig' %}
+{% import 'macros/macros.utils.html.twig' as utilsMacro %}
 
 {% block title %}{{ localizations.knowledge_title }} @ {{ sys.system.name }}{% endblock %}
 
@@ -10,4 +11,74 @@
             </div>
         </div>
     </div>
+
+    {{ utilsMacro.textHeader(localizations.admin_name, localizations.knowledge_intro) }}
+
+    <div class="row">
+        <div class="bs-component">
+            <div class="accordion" id="nfpAccordionKnowledge">
+                {% set i = 1 %}
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading{{ i }}">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapse{{ i }}" aria-expanded="true" aria-controls="collapse{{ i }}">
+                            {{ localizations.knowledge_kiwix_title }}
+                        </button>
+                    </h2>
+                    <div id="collapse{{ i }}" class="accordion-collapse collapse show" aria-labelledby="heading{{ i }}"
+                         data-bs-parent="#nfpAccordionKnowledge">
+                        <div class="accordion-body">
+
+                            <ul class="nfpList">
+                                {% for kiwixSrc in fileshare.kiwix %}
+                                    <li>
+                                        <i class="fa fa-globe"></i> &nbsp;
+                                        <a target="_blank"
+                                           href="http://{{ hostname }}:{{ kiwixPort }}/viewer#{{ kiwixSrc.file|preg_replace("/\.zim$/", "") }}">{{ kiwixSrc.title }}</a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+
+
+                        </div>
+                    </div>
+                </div>
+
+                {% for category,files in knowledgeInfosByCategory %}
+                    {% set i = i + 1 %}
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="heading{{ i }}">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapse{{ i }}" aria-expanded="false"
+                                    aria-controls="collapse{{ i }}">
+                                {{ localizations['knowledge_category_' ~ category] }}
+                            </button>
+                        </h2>
+                        <div id="collapse{{ i }}" class="accordion-collapse collapse" aria-labelledby="heading{{ i }}"
+                             data-bs-parent="#nfpAccordionKnowledge">
+                            <div class="accordion-body">
+
+                                <ul class="nfpList">
+                                    {% for file in files %}
+                                        <li>
+                                            <i class="fa fa-{% if file.file matches '{\.pdf$}' %}file-pdf-o{% else %}file{% endif %}"></i>
+                                            &nbsp;
+                                            <a target="_blank"
+                                               href="/download/public/knowledge/{{ file.file }}">{{ file.title }}</a>
+                                            ({{ file.sizeHuman }})
+                                        </li>
+                                    {% endfor %}
+
+                                    {# fileshare.public #}
+                                </ul>
+
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
 {% endblock %}

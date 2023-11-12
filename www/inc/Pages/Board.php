@@ -15,7 +15,7 @@ class Board extends Page
         parent::render();
 
         $bm     = new Boards();
-        $boards = $bm->getAll(true);
+        $boards = $bm->getAll(true, 1); // Currently only one board
 
         // TODO: Admin should see more!
         $onlyPublicPosts = true;

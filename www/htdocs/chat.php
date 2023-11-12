@@ -12,7 +12,14 @@ $loginUserData = $GLOBALS['UserManager']->getLoggedInUserData();
 
 if (!Utils::isLoggedIn()) {
     header("HTTP/1.1 403 Forbidden");
-    die("Not logged in!");
+    header("Content-Type: application/json");
+    echo json_encode(
+        [
+            "success" => false,
+            "id"      => $_GET['id']
+        ],
+        JSON_PRETTY_PRINT);
+    exit;
 }
 
 $expiration       = 3600; // TODO: make configurable!

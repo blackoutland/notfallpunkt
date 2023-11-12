@@ -34,3 +34,24 @@ Und alle Userdaten!
 Bei Verwendung von Varnish nur Daten von nicht eingeloggten Usern cachen?
 
 Logout -> delete memcache key for being online
+
+
+## KIWIX
+* Entsprechende ZIM-Archive herunterladen auf https://download.kiwix.org/zim/
+* Speichern in `fileshare/kiwix`
+
+
+## APK - Android Downloads
+* Quelle: https://apkpure.com/de/
+* `tools/scrapeAplPureData.php` kann z.B. im PHP-Container direkt ausgeführt werden und extrahiert JSON-Daten aus der zuvor
+gespeicherten HTML-App-Ansicht von APKPure - diese können dann in der `.files`-Datei eingetragen werden! Die HTML-Seiten der
+jeweiligen App ist im `tools/dl`-Verzeichnis zu speichern, bevor das PHP-Script ausgeführt wird!
+
+
+## OSM-Daten
+* Downloadquellen:
+ * https://download.bbbike.org/osm/planet/sub-planet-daily/
+ * https://download.openstreetmap.fr/extracts/europe/
+ * ... - siehe https://wiki.openstreetmap.org/wiki/Planet.osm#Downloading
+* Speichern in `public/files/osm`
+

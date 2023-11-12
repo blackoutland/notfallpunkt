@@ -12,16 +12,23 @@ class Boards
         $this->db = Utils::getDb();
     }
 
-    public function getAll($onlyPublic = true)
+    public function getAll($onlyPublic = true, $boardId = null)
     {
-        $params = [];
-        $sql    = "SELECT * FROM boards";
+        $params     = [];
+        $conditions = [];
+        $sql        = "SELECT * FROM boards";
 
         if ($onlyPublic) {
-            $sql      .= ' WHERE status = ? ';
-            $params[] = 'PUBLIC';
+            $conditions[] = ' status = ? ';
+            $params[]     = 'PUBLIC';
         }
 
+        if ($boardId) {
+            $conditions[] = 'id = ?';
+            $params[]     = $boardId;
+        }
+
+        $sql .= ' WHERE ' . implode(" AND ", $conditions);
         $sql .= " ORDER BY sorting";
 
         return $this->db->getAll($sql, $params);
@@ -46,6 +53,7 @@ class Boards
         $params   = [];
         $sql      = "
         SELECT
+            bp.id,
             bp.message, 
             bp.title,
             bp.status, 

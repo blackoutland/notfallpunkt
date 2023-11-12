@@ -138,3 +138,22 @@ body.page-chat #chat #chatBox ul#chatMsgList .cm em {
 body.page-chat #chat #chatBox ul#chatMsgList .cm {
     margin-bottom: 1rem;
 }
+
+#nfpAccordionKnowledge a, #nfpAccordionFiles a {
+    color:var(--bs-accordion-color);
+}
+
+#nfpAccordionFiles .nfpList li {
+    margin-bottom:10px;
+}
+
+#nfpAccordionFiles .hiddenInfo {
+    border:1px solid var(--bs-accordion-border-color);
+    padding:0.3rem;
+    display:none;
+}
+
+.nfpAppTitle {
+    font-weight:bold;
+    font-size:1rem;
+}

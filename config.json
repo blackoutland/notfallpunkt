@@ -3,5 +3,10 @@
   "debugSql": false,
   "disableCache": true,
   "db": "notfallpunkt.sqlite",
-  "sessionLifetimeSeconds": 86400
+  "sessionLifetimeSeconds": 86400,
+  "components": {
+    "kiwix": {
+      "port": 8080
+    }
+  }
 }

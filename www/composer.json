@@ -16,7 +16,11 @@
     "nette/utils": "^4.0",
     "nette/security": "^3.1",
     "josantonius/session": "^2.0",
-    "ext-memcached": "*"
+    "ext-memcached": "*",
+    "ext-dom": "*",
+    "symfony/css-selector": "^6.3",
+    "symfony/dom-crawler": "^6.3",
+    "blackoutland/human-readable-file-size": "dev-master"
   },
   "autoload": {
     "classmap": [
@@ -25,5 +29,9 @@
     ]
   },
   "repositories": [
+    {
+      "url": "https://github.com/blackoutland/human-readable-file-size.git",
+      "type": "git"
+    }
   ]
 }

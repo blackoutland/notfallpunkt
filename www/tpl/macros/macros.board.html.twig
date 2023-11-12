@@ -1,0 +1,70 @@
+{% macro board(posts, localizations) %}
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="bs-component">
+                <div class="row row-cols-1 row-cols-md-3 g-4 row-cols-lg-4">
+                    {% for post in posts %}
+
+                        {% if post.status == 'PUBLIC' %}
+                            {#
+                            {{ post.status }}<br>
+                            {{ post.user_status }}
+                            {{ post.user_info }}
+                            {{ post.user_id }}
+                            #}
+
+                            {% set type = post.type %}
+                            {% set cardClass = 'bg-dark' %}
+                            {% if type == 'good' %}{% set cardClass = 'bg-success' %}{% endif %}
+                            {% if type == 'bad' %}{% set cardClass = 'bg-danger' %}{% endif %}
+                            {% if type == 'warn' %}{% set cardClass = 'bg-warning' %}{% endif %}
+                            <div class="col">
+                                <div class="card text-white {{ cardClass }} mb-3" style="max-width: 20rem;">
+                                    <div class="card-header"><a
+                                                href="/users/{{ post.user_login }}">{{ post.user_login }}</a> @ <span
+                                                class="nfp_ts"
+                                                data-ts="{{ post.ts|date("U") }}">{{ post.ts|date("d.m.Y H:i:s") }}</span>
+                                    </div>
+                                    <div class="card-body">
+                                        <h4 class="card-title">{{ post.title }} #{{ post.id }}</h4>
+                                        <p class="card-text">{{ post.message|nl2br }}</p>
+                                    </div>
+                                    <div class="card-footer text-muted">
+                                        <button type="button" class="btn btn-primary" data-postid="{{ post.id }}"
+                                                data-login="{{ post.user_login }}" data-title="{{ post.title }}"
+                                                data-bs-toggle="modal" data-bs-target="#boardDeleteModal">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="boardDeleteModal">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">{{ localizations.board_post_delete_dialog_title }}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"></span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p id="boardDialogMsg">{{ localizations.board_post_delete_dialog_message }}</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary">{{ localizations.button_delete }}</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ localizations.button_cancel }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        i18n_post_delete_message = '{{ localizations.board_post_delete_dialog_message|raw|addslashes }}';
+    </script>
+{% endmacro %}

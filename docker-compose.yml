@@ -15,6 +15,7 @@ services:
       - ./temp:/temp
       - ./db:/db
       - ./fileshare:/fileshare
+      - ./tools:/var/tools
     networks:
       - blackoutland-net
     restart: always
@@ -30,6 +31,7 @@ services:
       - ./certs:/certs
       - ./conf/nginx/default.conf:/etc/nginx/conf.d/default.conf
       - ./conf/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./fileshare:/fileshare
     networks:
       - blackoutland-net
     restart: always
@@ -60,6 +62,17 @@ services:
       - 'SERVER=blackoutland-notfallpunkt-memcached:11211'
     networks:
       - blackoutland-net
+
+  kiwix:
+    container_name: blackoutland-notfallpunkt-kiwix
+    hostname: blackoutland-notfallpunkt-kiwix
+    ports:
+      - 8080:8080
+    image: ghcr.io/kiwix/kiwix-serve:latest
+    volumes:
+      - ./fileshare/kiwix:/data
+    command:
+      - '*.zim'
 
 networks:
   blackoutland-net:

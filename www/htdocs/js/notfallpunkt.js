@@ -235,9 +235,11 @@ function sendChatMessage(message, messageId, listElEl) {
             }
             //}
         },
-        error: function (request, status, error) {
-            if (listElEl) {
-                listElEl.addClass('error');
+        error: function (request, status, error, data) { // TODO: Return 200, but ERROR in the status ! We don't get the message contents on error :(
+            console.log(data);
+            const el = $('#' + status.id);
+            if (el) {
+                el.addClass('error');
             }
         }
     });
@@ -279,6 +281,8 @@ function submitChatMessage() {
 
 $(document).ready(function () {
 
+    let bodyEl = $('body');
+
     // Get elements
     navNewsNumberEl = $('#nfpUpdateCount_news');
     navBoardNumberEl = $('#nfpUpdateCount_board');
@@ -307,7 +311,7 @@ $(document).ready(function () {
 
     // Chat page
     // TODO: lastId
-    if ($('body').hasClass('page-chat')) {
+    if (bodyEl.hasClass('page-chat')) {
         const chatBt = $('#chatSendButton');
         chatMsg = $('#chatMessage');
         msgList = $('#chatMsgList');
@@ -338,5 +342,43 @@ $(document).ready(function () {
     }
 
     pullLiveStatus();
+
+    // BOARD
+    if (bodyEl.hasClass('page-board')) {
+        const myModal = document.getElementById('boardDeleteModal');
+        console.log(myModal);
+        //var myInput = document.getElementById('myInput')
+
+        myModal.addEventListener('shown.bs.modal', function (e) {
+            const bt = e.relatedTarget,
+                postId = bt.dataset['postid'],
+                title = bt.dataset['title'],
+                login = bt.dataset['login'];
+
+            const msg = i18n_post_delete_message.replace("${user}", login).replace("${title}", title);
+            console.log(msg);
+            $('#boardDialogMsg').html(msg);
+
+        });
+    }
+
+    // FILES
+    if (bodyEl.hasClass('page-files')) {
+        $('a.hiddenInfoSwitch').on('click', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            const el = $(e.currentTarget);
+            $('#' + $(el[0]).data('el')).toggle();
+        });
+    }
+
+    // Popovers everywhere enabled
+    const popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
+    popoverTriggerList.map(function (popoverTriggerEl) {
+        return new bootstrap.Popover(popoverTriggerEl)
+    });
+    new bootstrap.Popover(document.querySelector('.popover-dismiss'), {
+        trigger: 'focus'
+    });
 
 });

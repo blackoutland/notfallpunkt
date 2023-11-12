@@ -2,6 +2,8 @@
 
 namespace BlackoutLand\NotfallPunkt\Model;
 
+use CodeInc\HumanReadableFileSize\HumanReadableFileSize;
+
 class Utils
 {
     /** @var array */
@@ -24,6 +26,11 @@ class Utils
      * @var array|false
      */
     private static $allMemcacheKeys;
+
+    /**
+     * @var array
+     */
+    private static $fileInfo = [];
 
     /**
      * @return array
@@ -195,5 +202,87 @@ class Utils
         header("HTTP/1.1 Moved");
         header("Location: $path");
         exit;
+    }
+
+    public static function getFileInfo()
+    {
+        // TODO: Read from memcache to ease CPU (filesize reading, JSON parsing etc.)
+
+        if (!self::$fileInfo) {
+            self::$fileInfo = [
+                'community' => self::getFileInfos("/fileshare/community"),
+                'kiwix'     => self::getFileInfos("/fileshare/kiwix"),
+                'apk'       => self::getFileInfos("/fileshare/public/files/apk"),
+                'osm'       => self::getFileInfos("/fileshare/public/files/osm"),
+                'knowledge' => self::getFileInfos("/fileshare/public/knowledge"),
+            ];
+        }
+
+        return self::$fileInfo;
+    }
+
+    private static function getFileInfos($path)
+    {
+        $files    = glob("$path/**");
+        $fileInfo = file_exists("$path/.files.json") ? json_decode(file_get_contents("$path/.files.json"), JSON_PRETTY_PRINT) : [];
+
+        $localizations = self::getLocalizations();
+        $readableSize  = new HumanReadableFileSize();
+        $readableSize->useNumberFormatter($localizations['locale']);
+        $readableSize->setSpaceBeforeUnit();
+        $readableSize->setByteSymbol('B');
+       // echo $readableSize->compute(filesize('a-file.pdf'), 1);
+
+        $data = [];
+        foreach ($files as $file) {
+            foreach ($fileInfo as $item) {
+                if (basename($item['file']) === basename($file)) {
+
+                    $title = null;
+                    if (!empty($item['data'])) {
+                        if (!empty($item['data']['title'])) {
+                            $title = $item['data']['title'];
+                        }
+                    } else {
+                        $title = $item['title'];
+                    }
+
+                    $date = null;
+                    if (!empty($item['data'])) {
+                        $date = $item['data']['date'];
+                    } else {
+                        $date = isset($item['date']) ?: null;
+                    }
+
+                    $category = null;
+                    if (!empty($item['category'])) {
+                        $category = $item['category'];
+                    }
+
+                    $ts = null;
+                    if ($date) {
+                        try {
+                            $dt = new \DateTime($date);
+                            $ts = (int)$dt->format('U');
+                        } catch (\Exception $e) {
+                            // ignore
+                        }
+                    }
+
+                    $size   = filesize($file);
+                    $data[] = [
+                        'path'      => $file,
+                        'file'      => basename($file),
+                        'size'      => $size,
+                        'sizeHuman' => $size ? $readableSize->compute($size, 1) : null,
+                        'title'     => $title,
+                        'ts'        => $ts,
+                        'data'      => isset($item['data']) ? $item['data'] : null,
+                        'category'  => $category
+                    ];
+                }
+            }
+        }
+        return $data;
     }
 }
