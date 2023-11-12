@@ -14,7 +14,8 @@ let requestRunning = false,
     chatMsg = null,
     msgList = null,
     lastChatMessageId = 0,
-    isChatPage = (currentPage === 'chat');
+    isChatPage = (currentPage === 'chat'),
+    isLoggedIn = false;
 
 function htmlDecode(value) {
     return $('<div/>').html(value).text();
@@ -85,8 +86,9 @@ function pullLiveStatus() {
     }
     if (!requestRunning) {
         requestRunning = true;
-        $.ajax({
-            url: "/status.php?since=" + tsGenerated + '&cmsgid=' + lastChatMessageId + '&chat=' + chatActive, // TODO: Since news, since ...
+        $.post({
+            url: "/ajax/status",
+            data: {since: tsGenerated, cmsgid: lastChatMessageId, chat: chatActive}, // TODO: Since news, since ...
             success: function (data, text) {
                 if (reloadTmr) {
                     clearInterval(reloadTmr);
@@ -225,9 +227,10 @@ function encodeHTMLEntities(text) {
 }
 
 function sendChatMessage(message, messageId, listElEl) {
-    $.ajax({
+    $.post({
         // TODO: Limit length of message! Both here and in input field
-        url: "/chat.php?id=" + messageId + '&lastId=' + lastId + '&msg=' + encodeURIComponent(message),
+        url: "/ajax/chat",
+        data: {id: messageId, lastId: lastId, msg: message},
         success: function (data, text) {
             //if (data.success) {
             if (listElEl) {
@@ -291,6 +294,7 @@ $(document).ready(function () {
     navUserNumberEl = $('#nfpUpdateCount_user');
     navHomeEl = $('#nfpUpdateCount_home');
     navChatEl = $('#nfpUpdateCount_chat');
+    isLoggedIn = bodyEl.hasClass('loggedin');
 
     // Update live status
     setInterval(pullLiveStatus, statusReloadTime * 1000);
@@ -310,12 +314,16 @@ $(document).ready(function () {
     }
 
     // Chat page
-    // TODO: lastId
     if (bodyEl.hasClass('page-chat')) {
         const chatBt = $('#chatSendButton');
         chatMsg = $('#chatMessage');
         msgList = $('#chatMsgList');
         let chatBox = $('#chatBox');
+
+        if (!isLoggedIn) {
+            chatMsg.prop('disabled', 'disabled');
+            chatBt.prop('disabled', 'disabled');
+        }
 
         // Auto-convert relative date every second
         setInterval(function () {
@@ -345,6 +353,65 @@ $(document).ready(function () {
 
     // BOARD
     if (bodyEl.hasClass('page-board')) {
+        const cardTitle = $('#cardTitle'),
+            cardMessage = $('#cardMessage'),
+            cardCreateBt = $('#cardCreateButton');
+
+        let formEnabled = false,
+            titleVal = null,
+            messageVal = null;
+
+        function checkEnableBoardForm() {
+            formEnabled = (titleVal && messageVal && titleVal.length && messageVal.length);
+            if (formEnabled) {
+                cardCreateBt.prop('disabled', null);
+            } else {
+                cardCreateBt.prop('disabled', 'disabled');
+            }
+        }
+
+        cardTitle.on('keyup', function (e) {
+            titleVal = $(this).val().trim();
+            checkEnableBoardForm();
+        });
+        cardMessage.on('keyup', function (e) {
+            messageVal = $(this).val().trim();
+            checkEnableBoardForm();
+        });
+
+        cardCreateBt.on('click', function (e) {
+            e.stopPropagation();
+            e.preventDefault();
+
+            console.log('QAAAA');
+            // TODO: Add AJAX loader stuff!
+            cardTitle.val('');
+            cardMessage.val('');
+
+            $.post({
+                // TODO: Limit length of message! Both here and in input field
+                url: "/ajax/board",
+                data: {
+                    title: titleVal,
+                    message: messageVal
+                },
+                success: function (data, text) {
+
+                },
+                error: function (request, status, error, data) { // TODO: Return 200, but ERROR in the status ! We don't get the message contents on error :(
+                    console.log(data);
+                    const el = $('#' + status.id);
+                    if (el) {
+                        el.addClass('error');
+                    }
+                }
+            });
+
+            titleVal = '';
+            messageVal = '';
+
+        });
+
         const myModal = document.getElementById('boardDeleteModal');
         console.log(myModal);
         //var myInput = document.getElementById('myInput')
@@ -358,8 +425,9 @@ $(document).ready(function () {
             const msg = i18n_post_delete_message.replace("${user}", login).replace("${title}", title);
             console.log(msg);
             $('#boardDialogMsg').html(msg);
-
         });
+
+
     }
 
     // FILES
@@ -373,6 +441,7 @@ $(document).ready(function () {
     }
 
     // Popovers everywhere enabled
+    /*
     const popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
     popoverTriggerList.map(function (popoverTriggerEl) {
         return new bootstrap.Popover(popoverTriggerEl)
@@ -380,5 +449,6 @@ $(document).ready(function () {
     new bootstrap.Popover(document.querySelector('.popover-dismiss'), {
         trigger: 'focus'
     });
+    */
 
 });

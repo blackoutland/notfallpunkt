@@ -18,9 +18,21 @@ if (!$path) {
 }
 
 // Route request
-$action = null;
+$action   = null;
 $function = 'render';
 switch ($path) {
+    case '/ajax/board':
+        $page   = 'Ajax';
+        $function = 'board';
+        break;
+    case '/ajax/chat':
+        $page   = 'Ajax';
+        $function = 'chat';
+        break;
+    case '/ajax/status':
+        $page   = 'Ajax';
+        $function = 'status';
+        break;
     case '/news':
         $page = 'News';
         break;
@@ -42,11 +54,11 @@ switch ($path) {
         $action = 'signup';
         break;
     case '/logout':
-        $page = 'User';
+        $page     = 'User';
         $function = 'logout';
         break;
     case '/users':
-        $page = 'User';
+        $page   = 'User';
         $action = 'list';
         break;
     case '/':
@@ -57,15 +69,15 @@ switch ($path) {
         $page = 'Chat';
         break;
     case '/terms':
-        $page = 'Home';
+        $page     = 'Home';
         $function = 'termsPage';
         break;
     case '/contact':
-        $page = 'Home';
+        $page     = 'Home';
         $function = 'contactPage';
         break;
     default:
-        $page = 'Home';
+        $page   = 'Home';
         $action = 'notfound';
         break;
 }

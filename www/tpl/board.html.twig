@@ -18,6 +18,22 @@
 
     {{ utilsMacro.textHeader(localizations.admin_name, localizations.board_intro) }}
 
+    <div id="boardForm"
+         class="border-1 border-primary d-flex align-items-stretch flex-column justify-content-center mb-4 bg-dark"
+         style="height:100%">
+        <h4>Neue Nachricht erstellen</h4>
+        <div id="boardInput" class="d-flex flex-row flex-wrap">
+            <input autofocus type="text" name="title" id="cardTitle" value=""
+                   placeholder="{{ localizations.board_input_field_title_placeholder }}" class="flex-grow-3 p-2">
+            <textarea type="text" name="message" id="cardMessage"
+                      placeholder="{{ localizations.board_input_field_message_placeholder }}"
+                      class="flex-grow-1 p-2"></textarea>
+            <button type="button" class="btn btn-primary flex-grow-4" id="cardCreateButton" disabled="disabled">
+                <i class="fa fa-sticky-note"></i> {{ localizations.board_button_title }}
+            </button>
+        </div>
+    </div>
+
     {% for board in boards %}
         {# {{ board.board.id }}: {{ board.board.title }} #}
         {# {{ board.board.status }} #}

@@ -1,4 +1,5 @@
 {% extends 'main.html.twig' %}
+{% import 'macros/macros.utils.html.twig' as utilsMacro %}
 
 {% block title %}{{ localizations.chat_title }} @ {{ sys.system.name }}{% endblock %}
 
@@ -11,13 +12,7 @@
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-lg-12">
-            <p class="">
-                {{ localizations.chat_intro|replace({'${minutes}' : settings.chat_message_lifetime_minutes}) }}
-            </p>
-        </div>
-    </div>
+    {{ utilsMacro.textHeader(localizations.admin_name,  localizations.chat_intro|replace({'${minutes}' : settings.chat_message_lifetime_minutes})) }}
 
     <div id="chat" class="border-1 border-primary d-flex align-items-stretch flex-column justify-content-center mb-4"
          style="height:100%">
@@ -28,7 +23,8 @@
             <label for="chatMessage"></label>
             <input autofocus type="text" name="message" id="chatMessage" value=""
                    placeholder="{{ localizations.chat_input_field_placeholder }}" class="flex-grow-1 p-2">
-            <button type="button" class="btn btn-primary" id="chatSendButton"><i class="fa fa-send"></i> Senden</button>
+            <button type="button" class="btn btn-primary" id="chatSendButton"><i class="fa fa-send"></i> {{ localizations.chat_button_title }}</button>
         </div>
     </div>
+
 {% endblock %}

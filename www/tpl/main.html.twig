@@ -26,7 +26,7 @@
     <title>{% block title %}{{ sys.system.name }}{% endblock %}</title>
     {% block header %}{% endblock %}
 </head>
-<body class="d-flex flex-column h-100 page-{{ pageIndicator }}">
+<body class="d-flex flex-column h-100 page-{{ pageIndicator }}{% if user %} loggedin{% else %} notloggedin{% endif %}">
 <main>
     <nav class="navbar navbar-expand-sm navbar-dark bg-dark" aria-label="Third navbar example">
         <div class="container-fluid">
