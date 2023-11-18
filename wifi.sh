@@ -26,6 +26,7 @@ ${DRIVER+"driver=${DRIVER}"}
 ssid=${SSID}
 hw_mode=${HW_MODE}
 channel=${CHANNEL}
+country_code=${COUNTRY_CODE}
 wmm_enabled=1
 
 # Activate channel selection for HT High Througput (802.11an)

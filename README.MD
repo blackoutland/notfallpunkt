@@ -1,9 +1,37 @@
 # Notfallpunkt
 
 ## Notizen
+`git clone git clone https://github.com/blackoutland/notfallpunkt.git`
+`docker network create notfallpunkt-net`
+`cd notfallpunkt`
+`docker-compose up`
 
-* `docker network create blackoutland-net`
-* `docker-compose up`
+## Host-Einrichtung für WiFi-AP
+`sudo nano /etc/dhcpcd.conf`
+Darin dann`am Ende einfügen:
+```
+interface wlan0
+static ip_address=10.3.9.1/24
+nohook wpa_supplicant
+```
+
+## Zu testen (aus Notfunkwiki)
+
+Ganz wichtig: Wir schalten den Stromspar-Modus des WiFi-Dongles aus, bevor wir das vergessen ;-)
+Sonst muss man als Benutzer alle Nase lang die WiFi-/WLAN-Verbindung neu starten und sich neu anmelden.
+
+`sudo iw dev wlan0 set power_save off`
+`sudo nano /boot/config.txt` - Am ENDE hinzufügen:
+
+```
+### Internen WLAN-Chip abschalten (Soweit vorhanden)
+dtoverlay=disable-wifi
+### Bluetooth abschalten
+dtoverlay=disable-bt
+```
+
+## Sonstige Notizen
+
 
 TODO:
 
