@@ -17,6 +17,8 @@ WORKDIR /var/www
 EXPOSE 9000
 
 COPY docker-entrypoint.sh /entrypoint.sh
+RUN chmod 744 /entrypoint.sh
+
 ENTRYPOINT ["/entrypoint.sh"]
 
 CMD ["php-fpm"]
