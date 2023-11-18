@@ -88,7 +88,11 @@ function pullLiveStatus() {
         requestRunning = true;
         $.post({
             url: "/ajax/status",
-            data: {since: tsGenerated, cmsgid: lastChatMessageId, chat: chatActive}, // TODO: Since news, since ...
+            data: {
+                since: tsGenerated,
+                cmsgid: lastChatMessageId,
+                chat: chatActive
+            }, // TODO: Since news, since ...
             success: function (data, text) {
                 if (reloadTmr) {
                     clearInterval(reloadTmr);
@@ -230,7 +234,11 @@ function sendChatMessage(message, messageId, listElEl) {
     $.post({
         // TODO: Limit length of message! Both here and in input field
         url: "/ajax/chat",
-        data: {id: messageId, lastId: lastId, msg: message},
+        data: {
+            id: messageId,
+            lastId: lastId,
+            msg: message
+        },
         success: function (data, text) {
             //if (data.success) {
             if (listElEl) {
