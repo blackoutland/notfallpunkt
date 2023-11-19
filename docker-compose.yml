@@ -52,17 +52,17 @@ services:
       - .env
 
   # Only for development, keep disabled for PROD
-  notfallpunkt-memcachedadmin:
-    container_name: notfallpunkt-memcachedadmin
-    image: 'legacyphp/memcachedadmin:latest'
-    tty: true
-    ports:
-      - '10000:80'
-    environment:
-      - 'TZ=UTC'
-      - 'SERVER=notfallpunkt-memcached:11211'
-    networks:
-      - notfallpunkt-net
+  #  notfallpunkt-memcachedadmin:
+  #    container_name: notfallpunkt-memcachedadmin
+  #    image: 'legacyphp/memcachedadmin:latest'
+  #    tty: true
+  #    ports:
+  #      - '10000:80'
+  #    environment:
+  #      - 'TZ=UTC'
+  #      - 'SERVER=notfallpunkt-memcached:11211'
+  #    networks:
+  #      - notfallpunkt-net
 
   notfallpunkt-kiwix:
     container_name: notfallpunkt-kiwix
