@@ -48,6 +48,7 @@ class Utils
                 // Ignore silently
             }
 
+            $envVars = getenv();
             self::$sysData = [
                 'phpVersion'      => PHP_VERSION,
                 'serverSoftware'  => $_SERVER['SERVER_SOFTWARE'],
@@ -55,7 +56,21 @@ class Utils
                 'remoteIp'        => $_SERVER['REMOTE_ADDR'],
                 'debug'           => DEBUG,
                 'system'          => json_decode(file_get_contents('/system.json'), true),
-                'dbVersion'       => self::getDb()->getVersionNumber()
+                'dbVersion'       => self::getDb()->getVersionNumber(),
+                'accessPoint' => [
+                    'interface' => empty($envVars['INTERFACE']) ? null: $envVars['INTERFACE'],
+                    'subnet' => empty($envVars['SUBNET']) ? null: $envVars['SUBNET'],
+                    'subnet_' => empty($envVars['SUBNET_MASK']) ? null: $envVars['SUBNET_MASK'],
+                    'interface' => empty($envVars['AP_ADDR']) ? null: $envVars['AP_ADDR'],
+                    'interface' => empty($envVars['PRI_DNS']) ? null: $envVars['PRI_DNS'],
+                    'interface' => empty($envVars['DHCP_IP_START']) ? null: $envVars['DHCP_IP_START'],
+                    'interface' => empty($envVars['DHCP_IP_END']) ? null: $envVars['DHCP_IP_END'],
+                    'interface' => empty($envVars['DHCP_IP_NETMASK']) ? null: $envVars['DHCP_IP_NETMASK'],
+                    'interface' => empty($envVars['SSID']) ? null: $envVars['SSID'],
+                    'interface' => empty($envVars['CHANNEL']) ? null: $envVars['CHANNEL'],
+                    'interface' => empty($envVars['COUNTRY_CODE']) ? null: $envVars['COUNTRY_CODE'],
+                    'interface' => empty($envVars['HW_MODE']) ? null: $envVars['HW_MODE'],
+                ]
             ];
         }
 

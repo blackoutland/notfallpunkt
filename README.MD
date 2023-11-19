@@ -1,5 +1,17 @@
 # Notfallpunkt
 
+- Raspi-Image aufspielen mittels Imager, dabei Sprache usw. vorkonfigurieren, Benutzername "pi", SSH-Server aktivieren!
+```
+cd 
+sudo apt install git
+git clone https://github.com/blackoutland/notfallpunkt.git
+sudo mv notfallpunkt/ /opt/
+cd /opt/notfallpunkt
+chmod 777 raspi-setup.sh
+sudo ./raspi-setup.sh
+ 
+```
+
 ## Notizen
 `git clone git clone https://github.com/blackoutland/notfallpunkt.git`
 `docker network create notfallpunkt-net`
