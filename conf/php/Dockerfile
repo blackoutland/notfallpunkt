@@ -10,7 +10,7 @@ RUN docker-php-ext-install gd
 RUN docker-php-ext-install curl
 #RUN docker-php-ext-install fileinfo
 #RUN docker-php-ext-install iconv
-#RUN docker-php-ext-install intl
+RUN docker-php-ext-install intl
 RUN docker-php-ext-install zip
 
 RUN apt-get install -y unzip libz-dev libmemcached-dev
