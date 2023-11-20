@@ -18,7 +18,6 @@ wget https://download.kiwix.org/zim/other/klexikon_de_all_maxi_2023-09.zim -P fi
 
 copy conf/fileshare/kiwix.json fileshare/kiwix/.files.json
 
-
 echo "Downloading knowledge and Android files..."
 wget https://blackout.land/nfp/dl_knowledge.zip -P temp/
 wget https://blackout.land/nfp/dl_apk.zip -P temp/
@@ -32,6 +31,3 @@ rm temp/dl_knowledge.zip
 echo "Dowloading OpenStreetMap files..."
 wget https://download.openstreetmap.fr/extracts/europe/germany-latest.osm.pbf -P fileshare/public/files/osm/
 copy conf/fileshare/osm.json fileshare/public/files/osm/.files.json
-
-
-

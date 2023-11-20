@@ -31,6 +31,12 @@ server {
            expires max;
            add_header Cache-Control "public, no-transform";
        }
+
+       # Redirect other hostnames
+       if ($host != ${AP_HOSTNAME}) {
+         rewrite ^/(.*) http://${AP_HOSTNAME}/$1; # permanent;
+         break
+       }
 }
 
 server {
@@ -80,5 +86,11 @@ server {
         log_not_found     off;
         expires max;
         add_header Cache-Control "public, no-transform";
+    }
+
+    # Redirect other hostnames
+    if ($host != ${AP_HOSTNAME}) {
+      rewrite ^/(.*) https://${AP_HOSTNAME}/$1; # permanent;
+      break
     }
 }
