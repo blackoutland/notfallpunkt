@@ -30,17 +30,15 @@ country_code=${COUNTRY_CODE}
 wmm_enabled=1
 
 # Activate channel selection for HT High Throughput (802.11an)
-
 ${HT_ENABLED+"ieee80211n=1"}
 ${HT_CAPAB+"ht_capab=${HT_CAPAB}"}
 
 # Activate channel selection for VHT Very High Throughput (802.11ac)
-
 ${VHT_ENABLED+"ieee80211ac=1"}
 ${VHT_CAPAB+"vht_capab=${VHT_CAPAB}"}
 EOF
 
-
+# DNS Setup
 cat > "/etc/dnsmasq.conf" <<EOF
 
 interface=wlan0
@@ -52,27 +50,43 @@ dhcp-option=option:dns-server,${AP_ADDR}
 address=/#/${AP_ADDR}
 EOF
 
-
 # Setup interface and restart DHCP service
 ip link set ${INTERFACE} up
 ip addr flush dev ${INTERFACE}
 ip addr add ${AP_ADDR}/24 dev ${INTERFACE}
 
 # NAT settings
-echo "NAT settings ip_dynaddr, ip_forward"
+#echo "NAT settings ip_dynaddr, ip_forward"
 
-for i in ip_dynaddr ip_forward ; do
-  if [ $(cat /proc/sys/net/ipv4/$i) -eq 1 ] ; then
-    echo $i already 1
-  else
-    echo "1" > /proc/sys/net/ipv4/$i
-  fi
-done
+#for i in ip_dynaddr ip_forward ; do
+#  if [ $(cat /proc/sys/net/ipv4/$i) -eq 1 ] ; then
+#    echo $i already 1
+#  else
+#    echo "1" > /proc/sys/net/ipv4/$i
+#  fi
+#done
 
-cat /proc/sys/net/ipv4/ip_dynaddr
-cat /proc/sys/net/ipv4/ip_forward
+#cat /proc/sys/net/ipv4/ip_dynaddr
+#cat /proc/sys/net/ipv4/ip_forward
 
-if [ ! -f "/etc/dhcp" ] ; then
+# Forward all HTTP and HTTPS requests
+echo "Setting up forwarding rules to localhost for HTTP and HTTPS"
+sudo iptables -t nat -A PREROUTING -i ${INTERFACE} -p tcp --dport 80 -j REDIRECT --to-ports 80
+sudo iptables -t nat -A PREROUTING -i ${INTERFACE} -p tcp --dport 443 -j REDIRECT --to-ports 443
+
+# HTTPS CERTIFICATE
+CERT_CRT=/certs/cert.pem
+CERT_KEY=/certs/key.pem
+if [ ! -f $CERT_CRT ]; then
+   echo "HTTPS certificate does not yet exist, creating..."
+   exec openssl req -x509 -newkey rsa:4096 -keyout /certs/key.pem -out /certs/cert.pem -sha256 -days 3650 -nodes -subj "/C=DE/ST=NRW/L=BlackoutCity/O=Notfallpunkt/OU=IT/CN=10.3.9.1"
+else
+    echo "Using existing HTTPS certificate in $CERT_CRT"
+fi
+
+# DHCP
+echo "Seeting up DHCP..."
+if [ ! -d "/etc/dhcp" ] ; then
     mkdir /etc/dhcp
 fi
 
