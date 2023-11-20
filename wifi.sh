@@ -71,8 +71,8 @@ ip addr add ${AP_ADDR}/24 dev ${INTERFACE}
 
 # Forward all HTTP and HTTPS requests
 echo "Setting up forwarding rules to localhost for HTTP and HTTPS"
-sudo iptables -t nat -A PREROUTING -i ${INTERFACE} -p tcp --dport 80 -j REDIRECT --to-ports 80
-sudo iptables -t nat -A PREROUTING -i ${INTERFACE} -p tcp --dport 443 -j REDIRECT --to-ports 443
+iptables -t nat -A PREROUTING -i ${INTERFACE} -p tcp --dport 80 -j REDIRECT --to-ports 80
+iptables -t nat -A PREROUTING -i ${INTERFACE} -p tcp --dport 443 -j REDIRECT --to-ports 443
 
 # HTTPS CERTIFICATE
 CERT_CRT=/certs/cert.pem
