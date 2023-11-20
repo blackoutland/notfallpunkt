@@ -35,7 +35,7 @@ server {
        # Redirect other hostnames
        if ($host != ${AP_HOSTNAME}) {
          rewrite ^/(.*) http://${AP_HOSTNAME}/$1; # permanent;
-         break
+         break;
        }
 }
 
@@ -91,6 +91,6 @@ server {
     # Redirect other hostnames
     if ($host != ${AP_HOSTNAME}) {
       rewrite ^/(.*) https://${AP_HOSTNAME}/$1; # permanent;
-      break
+      break;
     }
 }
