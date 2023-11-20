@@ -18,6 +18,18 @@ if (DEBUG) {
     $whoops->register();
 }
 
+// Redirect if not correct IP (captive portal)
+$thisIp = getenv('AP_ADDR');
+if ($_SERVER["HTTP_HOST"] !== $thisIp) {
+    header("HTTP/1.1 302 Found");
+    if (!empty($_SERVER['HTTPS'])) {
+        header("https://$thisIp/");
+    } else {
+        header("http://$thisIp/");
+    }
+    exit;
+}
+
 // Session
 // TODO: Only do this is a logged in cookie exists
 $GLOBALS['UserManager'] = new UserManager();
