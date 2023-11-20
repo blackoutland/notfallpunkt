@@ -27,9 +27,9 @@ services:
     container_name: notfallpunkt-nginx
     hostname: notfallpunkt-nginx
     volumes:
+      - ./conf/nginx/templates:/etc/nginx/templates
       - ./www:/var/www
       - ./certs:/certs
-      - ./conf/nginx/default.conf:/etc/nginx/conf.d/default.conf
       - ./conf/nginx/nginx.conf:/etc/nginx/nginx.conf
       - ./fileshare:/fileshare
     networks:

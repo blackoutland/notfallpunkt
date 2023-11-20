@@ -18,14 +18,14 @@ if (DEBUG) {
     $whoops->register();
 }
 
-// Redirect if not correct IP (captive portal)
-$thisIp = getenv('AP_ADDR');
-if ($_SERVER["HTTP_HOST"] !== $thisIp) {
+// Redirect if not correct IP/hostname (captive portal)
+$apHostName = getenv('AP_HOSTNAME');
+if ($_SERVER["HTTP_HOST"] !== $apHostName) {
     header("HTTP/1.1 302 Found");
     if (!empty($_SERVER['HTTPS'])) {
-        header("https://$thisIp/");
+        header("https://$apHostName/");
     } else {
-        header("http://$thisIp/");
+        header("http://$apHostName/");
     }
     exit;
 }
