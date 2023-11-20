@@ -83,6 +83,9 @@ else
     echo "Using existing HTTPS certificate in $CERT_CRT"
 fi
 
+chmod 644 $CERT_CRT
+chmod 600 $CERT_KEY
+
 # DHCP
 echo "Seeting up DHCP..."
 if [ ! -d "/etc/dhcp" ] ; then
