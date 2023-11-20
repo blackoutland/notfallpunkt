@@ -40,8 +40,7 @@ EOF
 
 # DNS Setup
 cat > "/etc/dnsmasq.conf" <<EOF
-
-interface=wlan0
+interface=${INTERFACE}
 no-dhcp-interface=eth0
 dhcp-range=${DHCP_IP_START},${DHCP_IP_END},${DHCP_IP_NETMASK},${DHCP_IP_LEASE}
 dhcp-option=option:dns-server,${AP_ADDR}
