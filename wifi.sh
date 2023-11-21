@@ -116,3 +116,6 @@ echo "Starting HostAP daemon ..."
 
 wait $!
 
+echo "Setting up forwarding rules to localhost for HTTP and HTTPS"
+iptables -t nat -A PREROUTING -i ${INTERFACE} -p tcp --dport 80 -j REDIRECT --to-ports 80
+iptables -t nat -A PREROUTING -i ${INTERFACE} -p tcp --dport 443 -j REDIRECT --to-ports 443
