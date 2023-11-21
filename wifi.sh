@@ -83,8 +83,10 @@ else
     echo "Using existing HTTPS certificate in $CERT_CRT"
 fi
 
-chmod 644 $CERT_CRT
-chmod 600 $CERT_KEY
+# We set the permissions like this because it is a self-signed certificate anyways
+# and other permissions prevent a second build process
+chmod 666 $CERT_CRT
+chmod 666 $CERT_KEY
 
 # DHCP
 echo "Seeting up DHCP..."
