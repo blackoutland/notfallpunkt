@@ -95,3 +95,6 @@ jeweiligen App ist im `tools/dl`-Verzeichnis zu speichern, bevor das PHP-Script 
  * ... - siehe https://wiki.openstreetmap.org/wiki/Planet.osm#Downloading
 * Speichern in `public/files/osm`
 
+
+ADD SAMBA WITH RANDOMLY CREATED PASSWORD!
+
