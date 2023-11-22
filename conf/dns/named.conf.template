@@ -16,7 +16,7 @@ options {
         directory "/var/bind";
 
         // Configure the IPs to listen on here.
-        listen-on { any; };
+        listen-on { ${PRI_DNS}; };
         listen-on-v6 { none; };
 
         // If you want to allow only specific hosts to use the DNS server:
@@ -58,5 +58,5 @@ options {
 // All to our host
 zone "." {
     type master;
-    file "/etc/bind/db.fakeroot";
+    file "/etc/bind/named.conf";
 };

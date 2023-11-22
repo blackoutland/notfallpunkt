@@ -115,6 +115,7 @@ echo "Starting HostAP daemon ..."
 /usr/sbin/hostapd /etc/hostapd.conf &
 
 echo "Creating nameserver config..."
+/usr/local/bin/envsubst < /etc/bind/named.conf.template > /etc/bind/named.conf
 /usr/local/bin/envsubst < /etc/bind/zone.conf.template > /etc/bind/zone.conf
 
 echo "Starting BIND name server..."
