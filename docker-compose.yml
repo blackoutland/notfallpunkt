@@ -86,7 +86,6 @@ services:
       - ./certs:/certs
       - ./conf/dns/named.conf:/etc/bind/named.conf
       - ./conf/dns/zone.conf.template:/etc/bind/zone.conf.template
-      - ./conf/dns/zone.conf:/etc/bind/db.fakeroot
     env_file:
       - .env
 
