@@ -58,5 +58,5 @@ options {
 // All to our host
 zone "." {
     type master;
-    file "/etc/bind/named.conf";
+    file "/etc/bind/zone.conf";
 };
