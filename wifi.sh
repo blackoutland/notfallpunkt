@@ -114,6 +114,12 @@ trap 'true' SIGHUP
 echo "Starting HostAP daemon ..."
 /usr/sbin/hostapd /etc/hostapd.conf &
 
+echo "Creating nameserver config..."
+/usr/local/bin/envsubst < /etc/bind/zone.conf.template > /etc/bind/zone.conf
+
+echo "Starting BIND name server..."
+/usr/sbin/named -g -c /etc/bind/named.conf -u named
+
 wait $!
 
 echo "Resetting forwarding rules to localhost for HTTP and HTTPS"
