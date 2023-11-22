@@ -84,7 +84,7 @@ services:
     privileged: true
     volumes:
       - ./certs:/certs
-      - ./conf/dns/named.conf:/etc/bind/named.conf
+      - ./conf/dns/named.conf.template:/etc/bind/named.conf.template
       - ./conf/dns/zone.conf.template:/etc/bind/zone.conf.template
     env_file:
       - .env
