@@ -38,8 +38,8 @@ class Home extends Page
 
         // Android captive portal URL
         $isCaptivePortalUrl = false;
-        if ($_GET['page'] === '/generate_204') {
-            $_GET['page']       = 'home';
+        if ($_GET['_page'] === '/generate_204') {
+            $_GET['_page']       = 'home';
             $isCaptivePortalUrl = true;
         }
 
