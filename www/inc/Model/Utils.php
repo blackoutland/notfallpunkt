@@ -77,6 +77,11 @@ class Utils
         return self::$sysData;
     }
 
+    public static function getApIp()
+    {
+        return empty($envVars['AP_ADDR']) ? null: $envVars['AP_ADDR'];
+    }
+
     // TODO: move to new factory
     public static function getMemcacheConnection()
     {

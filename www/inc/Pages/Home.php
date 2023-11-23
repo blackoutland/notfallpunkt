@@ -7,10 +7,22 @@ use BlackoutLand\NotfallPunkt\Model\GeneralInfos;
 use BlackoutLand\NotfallPunkt\Model\OwnerNews;
 use BlackoutLand\NotfallPunkt\Model\Page;
 use BlackoutLand\NotfallPunkt\Model\Renderer;
+use BlackoutLand\NotfallPunkt\Model\Utils;
 
 class Home extends Page
 {
     protected $pageIndicator = 'home';
+
+    public function captivePortal()
+    {
+        header("HTTP/1.1 302 Found");
+        if ($_SERVER['HTTPS']) {
+            header("Location: http://" . Utils::getApIp() . '/?from=captiveportal');
+        } else {
+            header("Location: https://" . Utils::getApIp() . '/?from=captiveportal');
+        }
+        exit;
+    }
 
     public function render($subPage = null)
     {

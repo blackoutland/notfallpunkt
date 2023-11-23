@@ -21,16 +21,20 @@ if (!$path) {
 $action   = null;
 $function = 'render';
 switch ($path) {
+    case '/generate_204': // Google Connectivity Check
+        $page   = 'Home';
+        $action = 'captivePortal';
+        break;
     case '/ajax/board':
-        $page   = 'Ajax';
+        $page     = 'Ajax';
         $function = 'board';
         break;
     case '/ajax/chat':
-        $page   = 'Ajax';
+        $page     = 'Ajax';
         $function = 'chat';
         break;
     case '/ajax/status':
-        $page   = 'Ajax';
+        $page     = 'Ajax';
         $function = 'status';
         break;
     case '/news':
