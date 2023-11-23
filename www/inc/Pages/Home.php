@@ -42,6 +42,7 @@ class Home extends Page
             parent::output($renderer->render('404.html.twig', $data), true);
         }
 
+        dump($_GET);
         // NEWS
         $on              = new OwnerNews();
         $newsCount       = $on->getNewsCount(true);
