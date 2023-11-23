@@ -100,7 +100,10 @@
     {% endif %}
 
     {% if isCaptivePortalUrl %}
-        <p>IS_CAPTIVE_PORTAL_</p>
+        <p class="mt-5">
+            IS_CAPTIVE_PORTAL
+            {{ sys.remoteIp }}
+        </p>
     {% endif %}
 
 {% endblock %}
