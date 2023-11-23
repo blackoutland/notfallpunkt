@@ -12,3 +12,5 @@ temp/
 _design
 fileshare/*
 www/htdocs/minified
+
+certs/*.pem
