@@ -15,13 +15,7 @@ class Home extends Page
 
     public function captivePortal()
     {
-        header("HTTP/1.1 302 Found");
-        if ($_SERVER['HTTPS']) {
-            header("Location: http://" . Utils::getApIp() . '/?from=captiveportal');
-        } else {
-            header("Location: https://" . Utils::getApIp() . '/?from=captiveportal');
-        }
-        exit;
+        $this->render();
     }
 
     public function render($subPage = null)
@@ -42,7 +36,13 @@ class Home extends Page
             parent::output($renderer->render('404.html.twig', $data), true);
         }
 
-        dump($_GET);
+        // Android captive portal URL
+        $isCaptivePortalUrl = false;
+        if ($_GET['page'] === '/generate_204') {
+            $_GET['page']       = 'home';
+            $isCaptivePortalUrl = true;
+        }
+
         // NEWS
         $on              = new OwnerNews();
         $newsCount       = $on->getNewsCount(true);
@@ -64,7 +64,8 @@ class Home extends Page
             'news_owner'          => $ownerNews,
             'emergency_infos'     => $emergencyInfos,
             'infos'               => $infos,
-            'pageIndicator'       => $this->pageIndicator
+            'pageIndicator'       => $this->pageIndicator,
+            'isCaptivePortalUrl'  => $isCaptivePortalUrl
         ];
 
         parent::output($renderer->render('index.html.twig', $data));
