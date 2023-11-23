@@ -162,3 +162,7 @@ body.page-board #boardForm  {
     /*background-color: var(--bs-light) !important;*/
     padding:0.6rem;
 }
+
+.alert.alert-warning {
+    color:var(--bs-secondary-text-emphasis);
+}
