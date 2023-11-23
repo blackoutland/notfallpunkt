@@ -21,7 +21,11 @@ if (!$path) {
 $action   = null;
 $function = 'render';
 switch ($path) {
-    case '/generate_204': // Google Connectivity Check
+    case '/generate_204': // Google Connectivity Check (Android)
+        $page   = 'Home';
+        $action = 'captivePortal';
+        break;
+    case '/hotspot-detect.html': // Apple Connectivity Check
         $page   = 'Home';
         $action = 'captivePortal';
         break;
