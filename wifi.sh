@@ -78,7 +78,7 @@ CERT_CRT=/certs/cert.pem
 CERT_KEY=/certs/key.pem
 if [ ! -f $CERT_CRT ]; then
    echo "HTTPS certificate does not yet exist, creating..."
-   exec openssl req -x509 -newkey rsa:4096 -keyout /certs/key.pem -out /certs/cert.pem -sha256 -days 3650 -nodes -subj "/C=DE/ST=NRW/L=BlackoutCity/O=Notfallpunkt/OU=IT/CN=10.3.9.1"
+   exec openssl req -x509 -newkey rsa:4096 -keyout /certs/key.pem -out /certs/cert.pem -sha256 -days 3650 -nodes -subj "/C=DE/ST=NRW/L=BlackoutCity/O=Notfallpunkt/OU=IT/CN=10.3.9.1"  -extensions v3_req
 else
     echo "Using existing HTTPS certificate in $CERT_CRT"
 fi
