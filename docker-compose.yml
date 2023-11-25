@@ -64,30 +64,30 @@ services:
   #    networks:
   #      - notfallpunkt-net
 
-#  notfallpunkt-kiwix:
-#    container_name: notfallpunkt-kiwix
-#    hostname: notfallpunkt-kiwix
-#    ports:
-#      - 8080:8080
-#    image: ghcr.io/kiwix/kiwix-serve:latest
-#    volumes:
-#      - ./fileshare/kiwix:/data
-#    command:
-#      - '*.zim'
+  notfallpunkt-kiwix:
+    container_name: notfallpunkt-kiwix
+    hostname: notfallpunkt-kiwix
+    ports:
+      - 8080:8080
+    image: ghcr.io/kiwix/kiwix-serve:latest
+    volumes:
+      - ./fileshare/kiwix:/data
+    command:
+      - '*.zim'
 
-#  notfallpunkt-ap:
-#    build: .
-#    container_name: notfallpunkt-ap
-#    hostname: notfallpunkt-ap
-#    network_mode: host
-#    restart: always
-#    privileged: true
-#    volumes:
-#      - ./certs:/certs
-#      - ./conf/dns/named.conf.template:/etc/bind/named.conf.template
-#      - ./conf/dns/zone.conf.template:/etc/bind/zone.conf.template
-#    env_file:
-#      - .env
+  notfallpunkt-ap:
+    build: .
+    container_name: notfallpunkt-ap
+    hostname: notfallpunkt-ap
+    network_mode: host
+    restart: always
+    privileged: true
+    volumes:
+      - ./certs:/certs
+      - ./conf/dns/named.conf.template:/etc/bind/named.conf.template
+      - ./conf/dns/zone.conf.template:/etc/bind/zone.conf.template
+    env_file:
+      - .env
 
 networks:
   notfallpunkt-net:
