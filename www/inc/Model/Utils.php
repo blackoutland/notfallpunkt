@@ -48,7 +48,7 @@ class Utils
                 // Ignore silently
             }
 
-            $envVars = getenv();
+            $envVars       = getenv();
             self::$sysData = [
                 'phpVersion'      => PHP_VERSION,
                 'serverSoftware'  => $_SERVER['SERVER_SOFTWARE'],
@@ -57,19 +57,20 @@ class Utils
                 'debug'           => DEBUG,
                 'system'          => json_decode(file_get_contents('/system.json'), true),
                 'dbVersion'       => self::getDb()->getVersionNumber(),
-                'accessPoint' => [
-                    'interface' => empty($envVars['INTERFACE']) ? null: $envVars['INTERFACE'],
-                    'subnet' => empty($envVars['SUBNET']) ? null: $envVars['SUBNET'],
-                    'subnet_' => empty($envVars['SUBNET_MASK']) ? null: $envVars['SUBNET_MASK'],
-                    'interface' => empty($envVars['AP_ADDR']) ? null: $envVars['AP_ADDR'],
-                    'interface' => empty($envVars['PRI_DNS']) ? null: $envVars['PRI_DNS'],
-                    'interface' => empty($envVars['DHCP_IP_START']) ? null: $envVars['DHCP_IP_START'],
-                    'interface' => empty($envVars['DHCP_IP_END']) ? null: $envVars['DHCP_IP_END'],
-                    'interface' => empty($envVars['DHCP_IP_NETMASK']) ? null: $envVars['DHCP_IP_NETMASK'],
-                    'interface' => empty($envVars['SSID']) ? null: $envVars['SSID'],
-                    'interface' => empty($envVars['CHANNEL']) ? null: $envVars['CHANNEL'],
-                    'interface' => empty($envVars['COUNTRY_CODE']) ? null: $envVars['COUNTRY_CODE'],
-                    'interface' => empty($envVars['HW_MODE']) ? null: $envVars['HW_MODE'],
+                'accessPoint'     => [
+                    'interface'       => empty($envVars['INTERFACE']) ? null : $envVars['INTERFACE'],
+                    'hostname'        => empty($envVars['AP_HOSTNAME']) ? null : $envVars['AP_HOSTNAME'],
+                    'subnet'          => empty($envVars['SUBNET']) ? null : $envVars['SUBNET'],
+                    'subnetMask'      => empty($envVars['SUBNET_MASK']) ? null : $envVars['SUBNET_MASK'],
+                    'apAddress'       => empty($envVars['AP_ADDR']) ? null : $envVars['AP_ADDR'],
+                    'primaryDns'      => empty($envVars['PRI_DNS']) ? null : $envVars['PRI_DNS'],
+                    'dhcpIpStart'     => empty($envVars['DHCP_IP_START']) ? null : $envVars['DHCP_IP_START'],
+                    'dhcpIpEnd'       => empty($envVars['DHCP_IP_END']) ? null : $envVars['DHCP_IP_END'],
+                    'dhcpIpNetmask'   => empty($envVars['DHCP_IP_NETMASK']) ? null : $envVars['DHCP_IP_NETMASK'],
+                    'wifiSsid'        => empty($envVars['SSID']) ? null : $envVars['SSID'],
+                    'wifiChannel'     => empty($envVars['CHANNEL']) ? null : $envVars['CHANNEL'],
+                    'wifiCountryCode' => empty($envVars['COUNTRY_CODE']) ? null : $envVars['COUNTRY_CODE'],
+                    'wifiHwMode'      => empty($envVars['HW_MODE']) ? null : $envVars['HW_MODE'],
                 ]
             ];
         }
@@ -79,7 +80,7 @@ class Utils
 
     public static function getApIp()
     {
-        return empty($envVars['AP_ADDR']) ? null: $envVars['AP_ADDR'];
+        return empty($envVars['AP_ADDR']) ? null : $envVars['AP_ADDR'];
     }
 
     // TODO: move to new factory
@@ -251,7 +252,7 @@ class Utils
         $readableSize->useNumberFormatter($localizations['locale']);
         $readableSize->setSpaceBeforeUnit();
         $readableSize->setByteSymbol('B');
-       // echo $readableSize->compute(filesize('a-file.pdf'), 1);
+        // echo $readableSize->compute(filesize('a-file.pdf'), 1);
 
         $data = [];
         foreach ($files as $file) {
