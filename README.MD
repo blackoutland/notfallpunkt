@@ -1,4 +1,4 @@
-# Notfallpunkt
+# NotfallPunkt
 
 ![](doc/screenshot-01.png)
 
