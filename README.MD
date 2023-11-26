@@ -39,31 +39,55 @@ ist.
 
 ### Installation
 1. Raspberry Pi Imager herunterladen von https://www.raspberrypi.com/software/, installieren und starten
+
 2. Dort als _Raspberry Pi Gerät_ `Raspberry Pi Zero  2W` oder `Raspberry Pi Zero` je nach Gerät auswählen
+
 . ![](doc/imager.png)
+
 3. Als Betriebssystem `Raspberry Pi OS (Legacy) Lite` auswählen oder analoges, jedenfalls ohne Desktop
+
   ![](doc/imager-os.png)
+
   ![](doc/imager-os-lite.png)
+
 4. Die entsprechende SD-Karte am Computer anschließen mit passendem Lesegerät und dann auswählen
+
   ![](doc/imager-overview.png)
+
 5. Dann auf _Next_ klicken und dann auf _Einstellungen bearbeiten_
+
   ![](doc/imager-os-config.png)
+
 6. Dort die Optionen wie folgt konfigurieren (Benutzername und Passwort beliebig, aber sicher!)
+
   ![](doc/os-config-1.png)
+
 7. Unter _Dienste_ SSH aktivieren
+
   ![](doc/os-config-2.png)
+
 8. Unter _Optionen_ wie folgt konfigurieren oder ganz nach Wunsch
+
   ![](doc/os-config-3.png)
+
 9. SD-Karte schreiben, auswerfen und in Raspberry Pi einlegen und starten, optional Tastatur und
   Bildschirm anschließen
+
 10. [PuTTY](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html) herunterladen, installieren und starten
+
 11. `notfallpunkt` eintragen und _ENTER_ drücken
+
   ![](doc/putty-1.png)
+
 12. Den SSH-Key bestätigen
+
   ![](doc/putty-2.png)
+
 13. Mit Benutzername und Passwort einloggen (oder automatisch wie unter #7. mit vorher gewählten SSH-Key),
    jedoch als normaler Nutzer und nicht als _root_ (auch nicht mit `sudo`!)
+
   ![](doc/putty-3.png)
+
 14. Die folgenden Befehle der Reihe nach ausführen:
 ```
 cd /opt
@@ -76,10 +100,13 @@ exit
 ```
 im Anschluss zweimal hintereinander mittels `exit` ausloggen und erneut wie unter
   #11. beschrieben neu einloggen (Punkt #12. entfällt automatisch)
+
 15. Die Inhalte ganz nach Wunsch installieren (jeweils `j/n` eintippen), indem der folgende
  Befehl ausgeführt wird:
   `./setup-files.sh`
+
   ![](doc/setup-files.png)
+
 16. Nunmehr können die Docker-Container gebaut und automatisch gestartet werden:
 
 `docker-compose up --build`
