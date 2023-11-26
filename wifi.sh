@@ -49,6 +49,15 @@ dhcp-option=option:dns-server,${AP_ADDR}
 address=/#/${AP_ADDR}
 EOF
 
+# Workaround for failed initialization
+echo Quick snooze...
+sleep 2
+echo Blocking...
+/usr/sbin/rfkill block wifi
+echo Unblocking...
+/usr/sbin/rfkill unblock wifi
+sleep 2
+
 # Setup interface and restart DHCP service
 ip link set ${INTERFACE} up
 ip addr flush dev ${INTERFACE}
