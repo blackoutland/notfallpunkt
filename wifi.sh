@@ -89,7 +89,7 @@ chmod 666 $CERT_CRT
 chmod 666 $CERT_KEY
 
 # DHCP
-echo "Seeting up DHCP..."
+echo "Setting up DHCP..."
 if [ ! -d "/etc/dhcp" ] ; then
     mkdir /etc/dhcp
 fi
