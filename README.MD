@@ -1,5 +1,7 @@
 # Notfallpunkt
 
+![](doc/screenshot-01.png)
+
 __ACHTUNG: Dieses Projekt befindet sich noch in Entwicklung, noch nicht alles funktioniert vollständig (insbesondere die Website)__
 
 Dieses Projekt wurde inspiriert von der [Notfallbox](https://deutschland-funkt.de/notfallbox/doku.php?id=start) des
@@ -17,6 +19,7 @@ allerdings mit den folgenden Unterschieden:
       [jQuery 3.7.1](https://blog.jquery.com/2023/08/28/jquery-3-7-1-released-reliable-table-row-dimensions/),
       [Google Fonts](https://fonts.google.com/), 
       [Font Awesome 4.7.0](https://fontawesome.com/v4/icons/)
+      und ist vollständig responsive für die verschiedensten Bildschirmgrößen
     * Optimiert auf Performance (lokales Caching, Minification, Cache-Header, GZip usw.)
 
 ## Funktionsweise
