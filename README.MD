@@ -136,7 +136,7 @@ cd /opt/notfallpunkt
 docker-compose up -d
 ```
 
-Durch das "-d" laufen diese im Hintergrund. Zur Analyse von Fehler am besten ohne diesen
+Durch das `-d` laufen diese im Hintergrund. Zur Analyse von Fehlern am besten ohne diesen
 Parameter starten - denn werden alle Fehler direkt auf der Konsole angezeigt!
 Mit `Strg+C` können die Container dann wieder gestoppt werden.
 
