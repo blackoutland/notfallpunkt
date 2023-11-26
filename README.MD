@@ -71,6 +71,7 @@ sudo -s
 apt install git -y
 git clone https://github.com/blackoutland/notfallpunkt.git
 cd notfallpunkt
+exit
 ./setup-system.sh
 ```
 im Anschluss zweimal hintereinander mittels `exit` ausloggen und erneut wie unter
